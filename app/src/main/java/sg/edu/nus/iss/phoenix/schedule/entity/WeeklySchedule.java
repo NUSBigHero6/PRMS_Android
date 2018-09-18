@@ -23,8 +23,12 @@ public class WeeklySchedule {
         return scheduleDescription;
     }
 
-    public void setScheduleDescription(String radioProgramDescription) {
-        this.scheduleDescription = radioProgramDescription;
+    public void setScheduleName(String scheduleName) {
+        this.scheduleName = scheduleName;
+    }
+
+    public void setScheduleDescription(String scheduleDescription) {
+        this.scheduleDescription = scheduleDescription;
     }
 
 }
