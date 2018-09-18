@@ -9,26 +9,16 @@ import java.util.List;
 public class WeeklySchedule {
 
     private String scheduleName;
-    private String scheduleDescription;
     private List<ProgramSlot> programSlots;
     public WeeklySchedule(String scheduleName, String scheduleDescription, String radioProgramDuration) {
         this.scheduleName = scheduleName;
-        this.scheduleDescription = scheduleDescription;
     }
     public String getScheduleName() {
         return scheduleName;
     }
 
-    public String getScheduleDescription() {
-        return scheduleDescription;
-    }
-
     public void setScheduleName(String scheduleName) {
         this.scheduleName = scheduleName;
-    }
-
-    public void setScheduleDescription(String scheduleDescription) {
-        this.scheduleDescription = scheduleDescription;
     }
 
 }

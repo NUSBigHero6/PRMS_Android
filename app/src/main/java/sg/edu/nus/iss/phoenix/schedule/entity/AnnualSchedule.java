@@ -12,7 +12,7 @@ import java.util.ListIterator;
  */
 
 public class AnnualSchedule {
-
+   private String name;
     private List<WeeklySchedule> weeklySchedules;
     public void add(WeeklySchedule ws)
     {
@@ -21,7 +21,6 @@ public class AnnualSchedule {
             weeklySchedules.add(ws);
         }
     }
-
     public  void remove(WeeklySchedule ws)
     {
         if(weeklySchedules.contains(ws))
