@@ -6,3 +6,5 @@ package sg.edu.nus.iss.phoenix.schedule.android.delegate;
 
 public class CopyScheduleDelegate {
 }
+
+

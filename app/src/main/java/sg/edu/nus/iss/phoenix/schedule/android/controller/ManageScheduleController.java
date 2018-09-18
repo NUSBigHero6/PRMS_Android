@@ -93,7 +93,7 @@ public class ManageScheduleController {
         startUseCase();
     }
 
-    public void ManageScheduleUpdated(boolean success) {
+    public void ScheduleUpdated(boolean success) {
         // Go back to ManageScheduleList screen with refreshed ManageSchedules.
         startUseCase();
     }
@@ -115,6 +115,5 @@ public class ManageScheduleController {
     public void maintainedSchedule() {
         ControlFactory.getManageScheduleController();
     }
-
 
 }
