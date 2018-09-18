@@ -11,8 +11,13 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
  */
 
 public class ProgramSlot {
-    private  int programSlotId;
+    private  String name;
     private Time startTime;
     private Time endTime;
     private RadioProgram rp;
+    private Producer producer;
+    private Presenter presenter;
+    public String getName (){
+        return name;
+    }
 }

@@ -11,7 +11,6 @@ public class RadioProgram {
         this.radioProgramDescription = radioProgramDescription;
         this.radioProgramDuration = radioProgramDuration;
     }
-
     public String getRadioProgramName() {
         return radioProgramName;
     }
