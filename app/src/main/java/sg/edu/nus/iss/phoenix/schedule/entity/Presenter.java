@@ -16,7 +16,6 @@ public class Presenter {
         return presenterDescription;
     }
 
-
     public void setPresenterName(String presenterName) {
         this.presenterName = presenterName;
     }

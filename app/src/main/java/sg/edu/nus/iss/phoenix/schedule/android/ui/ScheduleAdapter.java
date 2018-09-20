@@ -37,15 +37,15 @@ public class ScheduleAdapter extends ArrayAdapter<ProgramSlot> {
         ProgramSlot currentRP = getItem(position);
 
         EditText radioPMName = (EditText)listItemView.findViewById(R.id.maintain_program_name_text_view);
-        radioPMName.setText(currentRP.getName(), TextView.BufferType.NORMAL);
+        radioPMName.setText(currentRP.getProgramName(), TextView.BufferType.NORMAL);
         radioPMName.setKeyListener(null); // This disables editing.
 
         EditText radioPMDesc = (EditText)listItemView.findViewById(R.id.maintain_program_desc_text_view);
-        radioPMDesc.setText(currentRP.getName(), TextView.BufferType.NORMAL);
+        radioPMDesc.setText(currentRP.getProgramName(), TextView.BufferType.NORMAL);
         radioPMDesc.setKeyListener(null);
 
         EditText radioPMDuration = (EditText)listItemView.findViewById(R.id.maintain_program_duration_text_view);
-        radioPMDuration.setText(currentRP.getName(), TextView.BufferType.NORMAL);
+        radioPMDuration.setText(currentRP.getProgramName(), TextView.BufferType.NORMAL);
         radioPMDuration.setKeyListener(null);
 
         return listItemView;

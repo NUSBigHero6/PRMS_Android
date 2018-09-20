@@ -12,23 +12,24 @@ import java.util.ListIterator;
  */
 
 public class AnnualSchedule {
-   private String name;
+    private int year;
+    private String assignedBy;
     private List<WeeklySchedule> weeklySchedules;
-    public void add(WeeklySchedule ws)
-    {
-        if(!weeklySchedules.contains(ws))
-        {
-            weeklySchedules.add(ws);
-        }
-    }
-    public  void remove(WeeklySchedule ws)
-    {
-        if(weeklySchedules.contains(ws))
-        {
-            weeklySchedules.remove(ws);
-        }
+
+    public int getYear() {
+        return year;
     }
 
+    public String getAssignedBy() {
+        return assignedBy;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+    public void setAssignedBy(String assignedBy) {
+        this.assignedBy = assignedBy;
+    }
     public AnnualSchedule ()
     {
     }

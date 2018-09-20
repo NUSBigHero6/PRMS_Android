@@ -50,7 +50,7 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 
         JSONObject json = new JSONObject();
         try {
-            json.put("name", params[0].getName());
+            json.put("name", params[0].getProgramName());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }

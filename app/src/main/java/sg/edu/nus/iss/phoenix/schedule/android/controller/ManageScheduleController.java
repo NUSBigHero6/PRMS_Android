@@ -60,11 +60,11 @@ public class ManageScheduleController {
 
     public void selectEditSchedule(ProgramSlot progamSlot) {
         progamSlot = progamSlot;
-        Log.v(TAG, "Editing Schedule: " + progamSlot.getName() + "...");
+        Log.v(TAG, "Editing Schedule: " + progamSlot.getProgramName() + "...");
 
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         Bundle b = new Bundle();
-        b.putString("Name", progamSlot.getName());
+        b.putString("Name", progamSlot.getProgramName());
      /*   b.putString("Description", radioManageSchedule.getRadioManageScheduleDescription());
         b.putString("Duration", radioManageSchedule.getRadioManageScheduleDuration());*/
         intent.putExtras(b);

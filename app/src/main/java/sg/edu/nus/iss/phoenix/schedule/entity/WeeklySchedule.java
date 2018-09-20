@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.phoenix.schedule.entity;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -8,17 +10,26 @@ import java.util.List;
 
 public class WeeklySchedule {
 
-    private String scheduleName;
+    private Date startDate;
+    private String assignedBy;
     private List<ProgramSlot> programSlots;
-    public WeeklySchedule(String scheduleName, String scheduleDescription, String radioProgramDuration) {
-        this.scheduleName = scheduleName;
+
+    public WeeklySchedule() {
     }
-    public String getScheduleName() {
-        return scheduleName;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setScheduleName(String scheduleName) {
-        this.scheduleName = scheduleName;
+    public String getAssignedBy() {
+        return assignedBy;
+    }
+
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    public void setAssignedBy(String assignedBy) {
+        this.assignedBy = assignedBy;
     }
 
 }
