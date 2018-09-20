@@ -17,8 +17,8 @@ public class ProgramSlot {
     private Date startTime;
     private String programName;
 
-    private Producer producer;
-    private Presenter presenter;
+    private String producerName;
+    private String presenterName;
     public Time getDuration (){
         return duration;
     }
@@ -49,5 +49,21 @@ public class ProgramSlot {
         this.programName=programName;
     }
 
+    public  String getProducerName()
+    {
+        return  producerName;
+    }
+    public  void setProducerName(String producerName)
+    {
+        this.producerName=producerName;
+    }
 
+    public  String getPresenterName()
+    {
+        return  presenterName;
+    }
+    public  void setPresenterName(String presenterName)
+    {
+        this.presenterName=presenterName;
+    }
 }
