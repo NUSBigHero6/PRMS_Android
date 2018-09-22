@@ -38,5 +38,8 @@
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
     <string name="action_select">Select</string>
+    <string name="title_activity_review_select_scheduled_program_screen">
+        ReviewSelectScheduledProgramScreenActivity
+    </string>
 
 </resources>

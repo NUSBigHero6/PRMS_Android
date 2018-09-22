@@ -12,31 +12,40 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
  */
 
 public class ProgramSlot {
-    private  Time duration;
-    private Date dateOfProgram;
-    private Date startTime;
+    private String duration;
+    private String dateOfProgram;
+    private String startTime;
     private String programName;
 
     private String producerName;
     private String presenterName;
-    public Time getDuration (){
+    public ProgramSlot(String dateOfProgram,String programName,String producerName,String presenterName,String startTime,String duration)
+    {
+        this.duration=duration;
+        this.dateOfProgram=dateOfProgram;
+        this.startTime=startTime;
+        this.programName=programName;
+        this.presenterName=presenterName;
+        this.producerName=producerName;
+    }
+    public String getDuration (){
         return duration;
     }
-    public void  setDuration(Time duration)
+    public void  setDuration(String duration)
     {
         this.duration=duration;
     }
-    public Date getDateOfProgram (){
+    public String getDateOfProgram (){
         return dateOfProgram;
     }
-    public void  setDateOfProgram(Date dateOfProgram)
+    public void  setDateOfProgram(String dateOfProgram)
     {
         this.dateOfProgram=dateOfProgram;
     }
-    public Date getStartTime (){
+    public String getStartTime (){
         return startTime;
     }
-    public void  setStartTime(Date startTime)
+    public void  setStartTime(String startTime)
     {
         this.startTime=startTime;
     }

@@ -37,6 +37,11 @@
         <activity android:name=".radioprogram.android.ui.ProgramListScreen" />
         <activity android:name=".radioprogram.android.ui.MaintainProgramScreen" />
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen" />
+        <activity
+            android:name=".schedule.android.ui.ReviewSelectScheduledProgramScreen"
+            android:label="@string/title_activity_review_select_scheduled_program_screen"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".schedule.android.ui.ScheduleListScreen"></activity>
     </application>
 
 </manifest>
