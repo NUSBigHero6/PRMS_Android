@@ -1,19 +1,22 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.support.annotation.Nullable;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
-import sg.edu.nus.iss.phoenix.schedule.entity.Producer;
-import sg.edu.nus.iss.phoenix.schedule.entity.Presenter;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 /**
  * Created by liu.cao on 18/9/2018.
@@ -26,56 +29,53 @@ public class ScheduleScreen extends AppCompatActivity {
 
     private EditText mSStartTimeEditText;
     private EditText mSProgramDateEditText;
+    private EditText producerEditorText;
     //private RadioProgram rp2edit = null;
 
     String[] programs ={"News","Movie","Drama"};
     String[] producers ={"Me","You","We"};
     String[] presenters ={"She","he","Us"};
     String[] duration ={"00:30:00","01:00:00","01:30:00"};
-
+    ListView listView=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-
-        // Find all relevant views that we will need to read user input from
-        mSProgramDateEditText = (EditText) findViewById(R.id.maintain_date_text_view);
+        mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
         mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
+        producerEditorText=(EditText) findViewById(R.id.maintain_producer_text_view);
 
-        //Creating the instance of ArrayAdapter containing list of program names
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>
-                (this,android.R.layout.select_dialog_item,programs);
-        //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv1 = (AutoCompleteTextView)findViewById(R.id.maintain_program_autocomplete_text_view);
-        actv1.setThreshold(1);//will start working from first character
-        actv1.setAdapter(adapter1);//setting the adapter data into the AutoCompleteTextView
+        listView= new ListView(this);
 
-        //Creating the instance of ArrayAdapter containing list of producer
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>
-                (this,android.R.layout.select_dialog_item,producers);
-        //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv2 = (AutoCompleteTextView)findViewById(R.id.maintain_producer_autocomplete_text_view);
-        actv2.setThreshold(1);//will start working from first character
-        actv2.setAdapter(adapter2);//setting the adapter data into the AutoCompleteTextView
+        producerEditorText.setClickable(true);
+        producerEditorText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogListView(v);
+            }
+        });
 
-        //Creating the instance of ArrayAdapter containing list of presenter
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<>
-                (this,android.R.layout.select_dialog_item,presenters);
-        //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv3 = (AutoCompleteTextView)findViewById(R.id.maintain_presenter_autocomplete_text_view);
-        actv3.setThreshold(1);//will start working from first character
-        actv3.setAdapter(adapter3);//setting the adapter data into the AutoCompleteTextView
-
-        //Creating the instance of ArrayAdapter containing list of duration
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<>
-                (this,android.R.layout.select_dialog_item,duration);
-        //Getting the instance of AutoCompleteTextView
-        AutoCompleteTextView actv4 = (AutoCompleteTextView)findViewById(R.id.maintain_programslot_autocomplete_duration_text_view);
-        actv4.setThreshold(1);//will start working from first character
-        actv4.setAdapter(adapter4);//setting the adapter data into the AutoCompleteTextView
-
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,R.layout.list_item,R.id.txtitem ,producers);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewGroup vg=(ViewGroup) view;
+                String produer= producers[i];
+                producerEditorText.setText(produer);
+            }
+        });
     }
-
+    public  void  showDialogListView(View view )
+    {
+        AlertDialog.Builder builder= new AlertDialog.Builder(ScheduleScreen.this);
+        builder.setTitle("Producer List");
+        builder.setCancelable(true);
+        builder.setPositiveButton("OK",null);
+        builder.setView(listView);
+        AlertDialog dialog=builder.create();
+        dialog.show();
+    }
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);

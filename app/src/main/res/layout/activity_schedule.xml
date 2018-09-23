@@ -7,83 +7,85 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:padding="16dp"
 tools:context=".schedule.android.ui.ScheduleScreen">
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date"
-        tools:text="Date of Program" />
+        tools:text="DateofProgram" />
+    <EditText
+        android:id="@+id/maintain_Date_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Program Date" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ProgramName"
+        tools:text="Program Name" />
 
     <EditText
-        android:id="@+id/maintain_date_text_view"
+        android:id="@+id/maintain_program_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        tools:text="Program Date" />
-<TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="ProgramName"
-tools:text="Program Name" />
-
-    <AutoCompleteTextView
-        android:id="@+id/maintain_program_autocomplete_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Program Name" />
+        tools:text="one" />
 
     <TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="ProducerName"
-tools:text="Producer Name" />
-
-    <AutoCompleteTextView
-        android:id="@+id/maintain_producer_autocomplete_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Producer Name"
+        android:text="ProducerName"
         tools:text="Producer Name" />
 
-    <TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="PresenterName"
-tools:text="Presenter Name" />
-
-    <AutoCompleteTextView
-        android:id="@+id/maintain_presenter_autocomplete_text_view"
+    <EditText
+        android:id="@+id/maintain_producer_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Presenter Name"
+        tools:text="one" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PresenterName"
         tools:text="Presenter Name" />
 
+    <EditText
+        android:id="@+id/maintain_presenter_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="one" />
+
     <TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="StartTime"
-tools:text="Start Time" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        tools:text="Name" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="StartTime"
+    tools:text="Start Time" />
 
     <EditText
-        android:id="@+id/maintain_starttime_text_view"
+    android:id="@+id/maintain_starttime_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:maxLength="8"
+    android:text="00:30:00"
+    tools:text="00:30:00" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="time"
+        android:text="Duration"
+        tools:text="Duration" />
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Duration"
+    tools:text="Duration" />
+
+    <EditText
+        android:id="@+id/maintain_programslot_duration_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:maxLength="8"
-        android:text="10:00"
-        tools:text="10:00" />
-
-<TextView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:text="Duration"
-tools:text="Duration" />
-
-    <AutoCompleteTextView
-        android:id="@+id/maintain_programslot_autocomplete_duration_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="00:30:00"
         tools:text="00:30:00" />
-
 </LinearLayout>
+

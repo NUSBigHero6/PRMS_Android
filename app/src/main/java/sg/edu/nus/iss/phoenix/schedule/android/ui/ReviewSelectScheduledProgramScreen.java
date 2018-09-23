@@ -33,11 +33,7 @@ public class ReviewSelectScheduledProgramScreen extends AppCompatActivity {
         setContentView(R.layout.activity_review_select_scheduled_program);
 
         ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
-        // ArrayList<String> radioProgramNames = new ArrayList<String>();
-        // mRPAdapter = new ArrayAdapter<String>(this, R.layout.activity_review_select_program,
-        //        R.id.maintain_program_name_text_view, radioProgramNames);
         mPSadapter = new ProgramSlotAdapter(this, programSlots);
-
         mListView = (ListView) findViewById(R.id.review_select_ps_list);
         mListView.setAdapter(mPSadapter);
 
