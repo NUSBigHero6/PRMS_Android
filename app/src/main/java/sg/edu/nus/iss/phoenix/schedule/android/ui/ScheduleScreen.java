@@ -18,6 +18,8 @@ import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
+import static sg.edu.nus.iss.phoenix.R.*;
+
 /**
  * Created by liu.cao on 18/9/2018.
  */
