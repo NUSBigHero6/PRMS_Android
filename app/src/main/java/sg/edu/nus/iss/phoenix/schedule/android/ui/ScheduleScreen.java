@@ -22,7 +22,7 @@ import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
  * Created by liu.cao on 18/9/2018.
  */
 
-public class ScheduleScreen extends AppCompatActivity {
+public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
 
     // Tag for logging
     //private static final String TAG = ScheduleScreen.class.getName();
@@ -30,52 +30,100 @@ public class ScheduleScreen extends AppCompatActivity {
     private EditText mSStartTimeEditText;
     private EditText mSProgramDateEditText;
     private EditText producerEditorText;
+    private EditText presenterEditorText;
+    private EditText programNameText;
     //private RadioProgram rp2edit = null;
 
-    String[] programs ={"News","Movie","Drama"};
-    String[] producers ={"Me","You","We"};
-    String[] presenters ={"She","he","Us"};
-    String[] duration ={"00:30:00","01:00:00","01:30:00"};
-    ListView listView=null;
+    String[] programs = {"News", "Movie", "Drama"};
+    String[] producers = {"Me", "You", "We"};
+    String[] presenters = {"She", "he", "Us"};
+    String[] duration = {"00:30:00", "01:00:00", "01:30:00"};
+    ListView listView = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
-        mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
-        mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
-        producerEditorText=(EditText) findViewById(R.id.maintain_producer_text_view);
+        setContentView(layout.activity_schedule);
+        mSProgramDateEditText = (EditText) findViewById(id.maintain_Date_text_view);
+        mSStartTimeEditText = (EditText) findViewById(id.maintain_starttime_text_view);
 
-        listView= new ListView(this);
-
+        producerEditorText = (EditText) findViewById(id.maintain_producer_text_view);
         producerEditorText.setClickable(true);
-        producerEditorText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogListView(v);
-            }
-        });
+        producerEditorText.setOnClickListener(this);
 
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,R.layout.list_item,R.id.txtitem ,producers);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewGroup vg=(ViewGroup) view;
-                String produer= producers[i];
-                producerEditorText.setText(produer);
-            }
-        });
+        presenterEditorText = (EditText) findViewById(id.maintain_presenter_text_view);
+        presenterEditorText.setClickable(true);
+        presenterEditorText.setOnClickListener(this);
+
+        programNameText = (EditText) findViewById(id.maintain_program_text_view);
+        programNameText.setClickable(true);
+        programNameText.setOnClickListener(this);
+
     }
-    public  void  showDialogListView(View view )
-    {
-        AlertDialog.Builder builder= new AlertDialog.Builder(ScheduleScreen.this);
-        builder.setTitle("Producer List");
+
+    @Override
+
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case id.maintain_producer_text_view:
+                listView= new ListView(this);
+                showDialogListView(v, "Producer list"); //improve if time permit
+                ArrayAdapter<String> adapter= new ArrayAdapter<String>(this, layout.list_item, id.txtitem ,producers);
+                listView.setAdapter(adapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ViewGroup vg=(ViewGroup) view;
+                        String producer= producers[i];
+                        producerEditorText.setText(producer);
+                    }
+                });
+                break;
+
+            case id.maintain_presenter_text_view:
+                listView= new ListView(this);
+                showDialogListView(v, "Presenter list"); //improve if time permit
+                ArrayAdapter<String> adapter1= new ArrayAdapter<String>(this, layout.list_item, id.txtitem ,presenters);
+                listView.setAdapter(adapter1);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ViewGroup vg=(ViewGroup) view;
+                        String presenter= presenters[i];
+                        presenterEditorText.setText(presenter);
+                    }
+                });
+                break;
+
+            case id.maintain_program_text_view:
+                listView= new ListView(this);
+                showDialogListView(v, "Program list"); //improve if time permit
+                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(this, layout.list_item, id.txtitem ,programs);
+                listView.setAdapter(adapter2);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ViewGroup vg=(ViewGroup) view;
+                        String program= programs[i];
+                        programNameText.setText(program);
+                    }
+                });
+                break;
+        }
+    }
+
+    public void showDialogListView(View view, String listName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScheduleScreen.this);
+        builder.setTitle(listName);
         builder.setCancelable(true);
-        builder.setPositiveButton("OK",null);
+        builder.setPositiveButton("OK", null);
         builder.setView(listView);
-        AlertDialog dialog=builder.create();
+        AlertDialog dialog = builder.create();
         dialog.show();
     }
+
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -98,3 +146,5 @@ public class ScheduleScreen extends AppCompatActivity {
         }*/
     }
 }
+
+
