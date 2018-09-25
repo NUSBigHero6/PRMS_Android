@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ManageScheduleController;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
@@ -31,10 +31,10 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
     // Tag for logging
     private static final String TAG = RetrieveSchedulesDelegate.class.getName();
 
-    private ManageScheduleController scheduleController = null;
+    private ScheduleController scheduleController = null;
     private ReviewSelectScheduleController reviewSelectScheduleController = null;
 
-    public RetrieveSchedulesDelegate(ManageScheduleController scheduleController) {
+    public RetrieveSchedulesDelegate(ScheduleController scheduleController) {
         this.reviewSelectScheduleController = null;
         this.scheduleController = scheduleController;
     }

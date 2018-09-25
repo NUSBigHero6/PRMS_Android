@@ -11,9 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.DeleteProgramDelegate;
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ManageScheduleController;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
 
@@ -25,10 +23,10 @@ public class DeleteScheduleDelegate  extends AsyncTask<String, Void, Boolean> {
     // Tag for logging
     private static final String TAG = DeleteScheduleDelegate.class.getName();
 
-    private final ManageScheduleController manageScheduleController;
+    private final ScheduleController scheduleController;
 
-    public DeleteScheduleDelegate(ManageScheduleController manageScheduleController) {
-        this.manageScheduleController = manageScheduleController;
+    public DeleteScheduleDelegate(ScheduleController scheduleController) {
+        this.scheduleController = scheduleController;
     }
 
     @Override
@@ -75,6 +73,6 @@ public class DeleteScheduleDelegate  extends AsyncTask<String, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        manageScheduleController.ScheduleDeleted(result.booleanValue());
+        scheduleController.ScheduleDeleted(result.booleanValue());
     }
 }

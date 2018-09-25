@@ -7,6 +7,7 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:padding="16dp"
 tools:context=".schedule.android.ui.ScheduleScreen">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,12 +60,12 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         tools:text="StartTime" />
 
     <EditText
-    android:id="@+id/maintain_starttime_text_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:maxLength="8"
-    android:text="12:30:00"
-    tools:text="12:30:00" />
+        android:id="@+id/maintain_starttime_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="8"
+        android:text="12:30:00"
+        tools:text="12:30:00" />
 
     <TextView
         android:layout_width="match_parent"
@@ -79,5 +80,6 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:maxLength="8"
         android:text="00:30:00"
         tools:text="00:30:00" />
-</LinearLayout>
 
+
+</LinearLayout>

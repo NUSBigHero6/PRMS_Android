@@ -13,10 +13,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.CreateProgramDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ManageScheduleController;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
@@ -29,10 +27,10 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
     // Tag for logging
     private static final String TAG = CreateProgramDelegate.class.getName();
 
-    private final ManageScheduleController manageScheduleController;
+    private final ScheduleController scheduleController;
 
-    public CreateScheduleDelegate(ManageScheduleController manageScheduleController) {
-        this.manageScheduleController = manageScheduleController;
+    public CreateScheduleDelegate(ScheduleController scheduleController) {
+        this.scheduleController = scheduleController;
     }
 
     @Override
@@ -88,7 +86,7 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 
     @Override
     protected void onPostExecute(Boolean result) {
-        manageScheduleController.ScheduleCreated(result.booleanValue());
+        scheduleController.ScheduleCreated(result.booleanValue());
     }
 }
 

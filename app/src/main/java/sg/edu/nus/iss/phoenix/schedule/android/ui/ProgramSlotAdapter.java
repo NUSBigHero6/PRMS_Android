@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
 import sg.edu.nus.iss.phoenix.R;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 
 /**
  * Created by liu.cao on 19/9/2018.

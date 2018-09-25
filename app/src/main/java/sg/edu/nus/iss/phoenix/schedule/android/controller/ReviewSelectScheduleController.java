@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.util.List;
 
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
@@ -52,4 +53,10 @@ public class ReviewSelectScheduleController {
         // At present, call the MainController instead.
         ControlFactory.getMainController().selectedScheduledProgram(psSelected);
     }
+    public void selectCreateSchedule() {
+        psSelected = null;
+        Intent intent = new Intent(MainController.getApp(),ScheduleScreen.class);
+        MainController.displayScreen(intent);
+    }
+
 }

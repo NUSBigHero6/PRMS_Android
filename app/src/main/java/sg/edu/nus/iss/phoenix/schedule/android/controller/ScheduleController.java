@@ -6,13 +6,17 @@ import android.util.Log;
 
 import java.util.List;
 
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.CreateScheduleDelegate;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.DeleteScheduleDelegate;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.ModifyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.PresenterListScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ProducerListScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
-import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.AnnualSchedule;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
@@ -21,27 +25,28 @@ import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
  * Created by liu.cao on 18/9/2018.
  */
 
-public class ManageScheduleController {
+public class ScheduleController {
 
     // Tag for logging.
-    private static final String TAG = ManageScheduleController.class.getName();
+    private static final String TAG = ScheduleController.class.getName();
 
     private ProducerListScreen producerListScreen;
     private PresenterListScreen presenterListScreen;
+    private ScheduleListScreen scheduleListScreen;
     private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
-    private ScheduleScreen scheduleScreen;
     private WeeklySchedule weeklySchedule = null;
     private AnnualSchedule annualSchedule=null;
     private ProgramSlot progamSlot=null;
+    private ScheduleScreen testScreen;
 
     public void startUseCase() {
         progamSlot = null;
-        Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
+        Intent intent = new Intent(MainController.getApp(), ReviewSelectScheduleScreen.class);
         MainController.displayScreen(intent);
     }
 
-    public void onDisplayScheduleList(ReviewSelectScheduleScreen reviewSelectScheduleScreen) {
-        this.reviewSelectScheduleScreen = reviewSelectScheduleScreen;
+    public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
+        this.scheduleListScreen = scheduleListScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
     }
 
@@ -54,6 +59,7 @@ public class ManageScheduleController {
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         MainController.displayScreen(intent);
     }
+
 
     public void selectEditSchedule(ProgramSlot progamSlot) {
         progamSlot = progamSlot;
@@ -71,21 +77,22 @@ public class ManageScheduleController {
         MainController.displayScreen(intent);
     }
 
-    public void onDisplaySchedule(ScheduleScreen scheduleScreen) {
-        this.scheduleScreen = scheduleScreen;
+
+    public void onDisplaySchedule(ScheduleScreen testScreen) {
+        this.testScreen = testScreen;
         if (progamSlot == null)
-            scheduleScreen.createSchedule();
+            testScreen.createProgramSlot();
 
         else
-            scheduleScreen.editSchedule(progamSlot);
+            testScreen.editProgramSlot(progamSlot);
     }
 
     public void selectUpdateSchedule(ProgramSlot programSlot) {
-        //new UpdateScheduleDelegate(this).execute(programSlot);
+        new ModifyScheduleDelegate(this).execute(programSlot);
     }
 
     public void selectDeleteSchedule(ProgramSlot programSlot) {
-        //new DeleteScheduleDelegate(this).execute(programSlot.getRadioManageScheduleName());
+        new DeleteScheduleDelegate(this).execute(programSlot.getProgramName());
     }
 
     public void ScheduleDeleted(boolean success) {
@@ -99,7 +106,7 @@ public class ManageScheduleController {
     }
 
     public void selectCreateSchedule(ProgramSlot programSlot) {
-       // new CreateScheduleDelegate(this).execute(programSlot);
+        new CreateScheduleDelegate(this).execute(programSlot);
     }
 
     public void ScheduleCreated(boolean success) {
@@ -113,7 +120,20 @@ public class ManageScheduleController {
     }
 
     public void maintainedSchedule() {
-        ControlFactory.getManageScheduleController();
+        ControlFactory.getMainController().selectMaintainSchedule();
     }
+
+ //For Testing
+
+   public void onDisplayScheduleTest(ScheduleScreen testScreen) {
+        this.testScreen = testScreen;
+        if (progamSlot == null)
+            testScreen.createProgramSlot();
+
+        else
+            testScreen.editProgramSlot(progamSlot);
+    }
+
+
 
 }

@@ -1,9 +1,15 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
-import android.os.Bundle;
+/**
+ * Created by liu.cao on 25/9/2018.
+ */
+
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ListView;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,42 +25,38 @@ import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
-public class ReviewSelectScheduleScreen extends AppCompatActivity {
-    // Tag for logging
-    private static final String TAG = ReviewSelectScheduleScreen.class.getName();
+public class ScheduleListScreen extends AppCompatActivity {
 
-    private ProgramSlotAdapter mPSadapter;
-    // private ArrayAdapter<String> adapter = null;
-    private ListView mListView;
-    private ProgramSlot selectedPS = null;
-
+ /*   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_select_schedule);
+        setContentView(R.layout.activity_schedule_list);
+    }*/
 
+    // Tag for logging
+    private static final String TAG = ScheduleListScreen.class.getName();
+
+    private ListView mListView;
+    private ProgramSlotAdapter mPSAdapter;
+    private ProgramSlot selectedPS = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_schedule_list);
         ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
-        mPSadapter = new ProgramSlotAdapter(this, programSlots);
-        mListView = (ListView) findViewById(R.id.review_select_ps_list);
-        mListView.setAdapter(mPSadapter);
+        mPSAdapter = new ProgramSlotAdapter(this, programSlots);
+        mListView = (ListView) findViewById(R.id.program_slot_list);
+        mListView.setAdapter(mPSAdapter);
 
-        // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.schedulefab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // ControlFactory.getScheduleController().selectCreateSchedule();
-               ControlFactory.getReviewSelectScheduleController().selectCreateSchedule();
-            }
-        });
         // Setup the item selection listener
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                // Log.v(TAG, "Radio program at position " + position + " selected.");
                 ProgramSlot ps = (ProgramSlot) adapterView.getItemAtPosition(position);
-                // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
                 selectedPS = ps;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // your stuff
@@ -67,15 +69,14 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setSelection(0);
-
-        ControlFactory.getReviewSelectScheduleController().onDisplay(this);
+        ControlFactory.getScheduleController().onDisplayScheduleList(this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_review_select, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -84,15 +85,14 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
-            case R.id.action_select:
+            case R.id.action_view:
                 if (selectedPS == null) {
                     // Prompt for the selection of a radio program.
-                    Toast.makeText(this, "Select a  schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected schedule.");
-                }
-                else {
-                    Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
-                    ControlFactory.getReviewSelectScheduleController().selectSchedule(selectedPS);
+                } else {
+                    Log.v(TAG, "Viewing schedule of program: " + selectedPS.getProgramName() + "...");
+                    ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
                 }
         }
 
@@ -101,15 +101,14 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        ControlFactory.getReviewSelectProgramController().selectCancel();
+        ControlFactory.getScheduleController().maintainedSchedule();
     }
 
-    public void showProgramSlots(List<ProgramSlot> programSlots) {
-        mPSadapter.clear();
+    public void showSchedules(List<ProgramSlot> programSlots) {
+        mPSAdapter.clear();
         for (int i = 0; i < programSlots.size(); i++) {
-            mPSadapter.add(programSlots.get(i));
+            mPSAdapter.add(programSlots.get(i));
         }
     }
 }
-
 
