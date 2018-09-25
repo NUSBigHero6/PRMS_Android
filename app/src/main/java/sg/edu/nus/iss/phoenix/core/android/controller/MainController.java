@@ -56,6 +56,11 @@ public class MainController {
         ControlFactory.getScheduleController().startUseCase();
     }
 
+    public void selectMaintainUser() {
+        // This is the placeholder for starting the Maintain User use case.
+        ControlFactory.getUserController().startUseCase();
+    }
+
     // This is a dummy operation to test the invocation of Review Select Radio Program use case.
     public void selectedProgram(RadioProgram rpSelected) {
         startUseCase(username);

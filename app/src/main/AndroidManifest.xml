@@ -39,7 +39,9 @@
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen" />
         <activity android:name=".schedule.android.ui.ReviewSelectScheduleScreen" />
         <activity android:name=".schedule.android.ui.ScheduleListScreen" />
-        <activity android:name=".schedule.android.ui.ScheduleScreen"></activity>
+        <activity android:name=".schedule.android.ui.ScheduleScreen" />
+        <activity android:name=".user.android.ui.UserListScreen" />
+        <activity android:name=".user.android.ui.UserScreen"></activity>
     </application>
 
 </manifest>

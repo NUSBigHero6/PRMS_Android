@@ -44,6 +44,7 @@ public class ScheduleListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_list);
+
         ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
         mPSAdapter = new ProgramSlotAdapter(this, programSlots);
         mListView = (ListView) findViewById(R.id.program_slot_list);
