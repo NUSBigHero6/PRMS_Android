@@ -37,7 +37,7 @@ public class ScheduleController {
     private WeeklySchedule weeklySchedule = null;
     private AnnualSchedule annualSchedule = null;
     private ProgramSlot progamSlot = null;
-    private ScheduleScreen testScreen;
+    private ScheduleScreen scheduleScreen;
 
     public void startUseCase() {
         progamSlot = null;
@@ -79,13 +79,13 @@ public class ScheduleController {
     }
 
 
-    public void onDisplaySchedule(ScheduleScreen testScreen) {
-        this.testScreen = testScreen;
+    public void onDisplaySchedule(ScheduleScreen scheduleScreen) {
+        this.scheduleScreen = scheduleScreen;
         if (progamSlot == null)
-            testScreen.createProgramSlot();
+            this.scheduleScreen.createProgramSlot();
 
         else
-            testScreen.editProgramSlot(progamSlot);
+            this.scheduleScreen.editProgramSlot(progamSlot);
     }
 
     public void selectUpdateSchedule(ProgramSlot programSlot) {
@@ -126,13 +126,13 @@ public class ScheduleController {
 
     //For Testing
 
-    public void onDisplayScheduleTest(ScheduleScreen testScreen) {
-        this.testScreen = testScreen;
+    public void onDisplayScheduleTest(ScheduleScreen scheduleScreen) {
+        this.scheduleScreen = scheduleScreen;
         if (progamSlot == null)
-            testScreen.createProgramSlot();
+            this.scheduleScreen.createProgramSlot();
 
         else
-            testScreen.editProgramSlot(progamSlot);
+            this.scheduleScreen.editProgramSlot(progamSlot);
     }
 
 
