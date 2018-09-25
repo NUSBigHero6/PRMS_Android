@@ -46,7 +46,7 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Uri builtUri1 = Uri.parse( PRMS_BASE_URL_RADIO_PROGRAM ).buildUpon().build();
+        Uri builtUri1 = Uri.parse(PRMS_BASE_URL_RADIO_PROGRAM).buildUpon().build();
 
         Uri builtUri = Uri.withAppendedPath(builtUri1, params[0]).buildUpon().build();
         Log.v(TAG, builtUri.toString());
@@ -66,11 +66,10 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
-            if (scanner.hasNext())
-            {
+            if (scanner.hasNext()) {
                 //hardcode here , waiting for backend service
-               // jsonResp = scanner.next();
-                jsonResp="{\"psList\":[{\"date\":\"2018-9-20\",\"producername\":\"allen\",\"presentername\":\"jim\",\"programname\":\"TV show\",\"starttime\":\"9pm\",\"duration\":\"00:30:00+07:30\"},{\"date\":\"2018-9-21\",\"producername\":\"nick\",\"presentername\":\"mary\",\"programname\":\"music show\",\"starttime\":\"10pm\",\"duration\":\"00:30:00+07:30\"}]}";
+                // jsonResp = scanner.next();
+                jsonResp = "{\"psList\":[{\"date\":\"2018-9-20\",\"producername\":\"allen\",\"presentername\":\"jim\",\"programname\":\"TV show\",\"starttime\":\"9pm\",\"duration\":\"00:30:00+07:30\"},{\"date\":\"2018-9-21\",\"producername\":\"nick\",\"presentername\":\"mary\",\"programname\":\"music show\",\"starttime\":\"10pm\",\"duration\":\"00:30:00+07:30\"}]}";
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,9 +95,9 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
                     String producername = psJson.getString("producername");
                     String presentername = psJson.getString("presentername");
                     String programname = psJson.getString("programname");
-                    String starttime=psJson.getString("starttime");
-                    String duration=psJson.getString("duration");
-                    programSlots.add(new ProgramSlot(date, programname, producername,presentername,starttime,duration));
+                    String starttime = psJson.getString("starttime");
+                    String duration = psJson.getString("duration");
+                    programSlots.add(new ProgramSlot(date, programname, producername, presentername, starttime, duration));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());

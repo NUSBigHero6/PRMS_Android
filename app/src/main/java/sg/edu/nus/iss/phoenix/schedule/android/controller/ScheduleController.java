@@ -35,8 +35,8 @@ public class ScheduleController {
     private ScheduleListScreen scheduleListScreen;
     private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private WeeklySchedule weeklySchedule = null;
-    private AnnualSchedule annualSchedule=null;
-    private ProgramSlot progamSlot=null;
+    private AnnualSchedule annualSchedule = null;
+    private ProgramSlot progamSlot = null;
     private ScheduleScreen testScreen;
 
     public void startUseCase() {
@@ -54,6 +54,7 @@ public class ScheduleController {
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
         reviewSelectScheduleScreen.showProgramSlots(programSlots);
     }
+
     public void selectCreateSchedule() {
         progamSlot = null;
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
@@ -68,7 +69,7 @@ public class ScheduleController {
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         Bundle b = new Bundle();
         b.putString("DateofProgram", progamSlot.getDateOfProgram());
-        b.putString("ProgramName",progamSlot.getProgramName());
+        b.putString("ProgramName", progamSlot.getProgramName());
         b.putString("ProducerName", progamSlot.getProducerName());
         b.putString("PresenterName", progamSlot.getPresenterName());
         b.putString("StartTime", progamSlot.getStartTime());
@@ -123,9 +124,9 @@ public class ScheduleController {
         ControlFactory.getMainController().selectMaintainSchedule();
     }
 
- //For Testing
+    //For Testing
 
-   public void onDisplayScheduleTest(ScheduleScreen testScreen) {
+    public void onDisplayScheduleTest(ScheduleScreen testScreen) {
         this.testScreen = testScreen;
         if (progamSlot == null)
             testScreen.createProgramSlot();
@@ -133,7 +134,6 @@ public class ScheduleController {
         else
             testScreen.editProgramSlot(progamSlot);
     }
-
 
 
 }

@@ -53,9 +53,10 @@ public class ReviewSelectScheduleController {
         // At present, call the MainController instead.
         ControlFactory.getMainController().selectedScheduledProgram(psSelected);
     }
+
     public void selectCreateSchedule() {
         psSelected = null;
-        Intent intent = new Intent(MainController.getApp(),ScheduleScreen.class);
+        Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         MainController.displayScreen(intent);
     }
 

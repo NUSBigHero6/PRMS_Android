@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.ArrayList;
+
 import sg.edu.nus.iss.phoenix.R;
 
 /**
@@ -34,27 +36,27 @@ public class ProgramSlotAdapter extends ArrayAdapter<ProgramSlot> {
         }
         ProgramSlot currentPS = getItem(position);
 
-        EditText psDate = (EditText)listItemView.findViewById(R.id.maintain_Date_text_view);
+        EditText psDate = (EditText) listItemView.findViewById(R.id.maintain_Date_text_view);
         psDate.setText(currentPS.getDateOfProgram(), TextView.BufferType.NORMAL);
         psDate.setKeyListener(null); // This disables editing.
 
-        EditText programName = (EditText)listItemView.findViewById(R.id.maintain_program_text_view);
+        EditText programName = (EditText) listItemView.findViewById(R.id.maintain_program_text_view);
         programName.setText(currentPS.getProgramName(), TextView.BufferType.NORMAL);
         programName.setKeyListener(null);
 
-        EditText producerName = (EditText)listItemView.findViewById(R.id.maintain_producer_text_view);
+        EditText producerName = (EditText) listItemView.findViewById(R.id.maintain_producer_text_view);
         producerName.setText(currentPS.getProducerName(), TextView.BufferType.NORMAL);
         producerName.setKeyListener(null);
 
-        EditText presenterName = (EditText)listItemView.findViewById(R.id.maintain_presenter_text_view);
+        EditText presenterName = (EditText) listItemView.findViewById(R.id.maintain_presenter_text_view);
         presenterName.setText(currentPS.getPresenterName(), TextView.BufferType.NORMAL);
         presenterName.setKeyListener(null);
 
-        EditText startTime = (EditText)listItemView.findViewById(R.id.maintain_starttime_text_view);
+        EditText startTime = (EditText) listItemView.findViewById(R.id.maintain_starttime_text_view);
         startTime.setText(currentPS.getDuration(), TextView.BufferType.NORMAL);
         startTime.setKeyListener(null);
 
-        EditText duration = (EditText)listItemView.findViewById(R.id.maintain_programslot_duration_text_view);
+        EditText duration = (EditText) listItemView.findViewById(R.id.maintain_programslot_duration_text_view);
         duration.setText(currentPS.getDuration(), TextView.BufferType.NORMAL);
         duration.setKeyListener(null);
 

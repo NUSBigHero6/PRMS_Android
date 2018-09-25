@@ -42,8 +42,8 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // ControlFactory.getScheduleController().selectCreateSchedule();
-               ControlFactory.getReviewSelectScheduleController().selectCreateSchedule();
+                // ControlFactory.getScheduleController().selectCreateSchedule();
+                ControlFactory.getReviewSelectScheduleController().selectCreateSchedule();
             }
         });
         // Setup the item selection listener
@@ -55,6 +55,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                 // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
                 selectedPS = ps;
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // your stuff
@@ -89,8 +90,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                     // Prompt for the selection of a radio program.
                     Toast.makeText(this, "Select a  schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected schedule.");
-                }
-                else {
+                } else {
                     Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
                     ControlFactory.getReviewSelectScheduleController().selectSchedule(selectedPS);
                 }

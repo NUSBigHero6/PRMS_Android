@@ -19,7 +19,7 @@ import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_B
  * Created by liu.cao on 18/9/2018.
  */
 
-public class DeleteScheduleDelegate  extends AsyncTask<String, Void, Boolean> {
+public class DeleteScheduleDelegate extends AsyncTask<String, Void, Boolean> {
     // Tag for logging
     private static final String TAG = DeleteScheduleDelegate.class.getName();
 
@@ -40,7 +40,7 @@ public class DeleteScheduleDelegate  extends AsyncTask<String, Void, Boolean> {
             return new Boolean(false);
         }
         Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri,"delete").buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, "delete").buildUpon().build();
         builtUri = Uri.withAppendedPath(builtUri, name).buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
@@ -59,7 +59,7 @@ public class DeleteScheduleDelegate  extends AsyncTask<String, Void, Boolean> {
             httpURLConnection.setInstanceFollowRedirects(false);
             httpURLConnection.setRequestMethod("DELETE");
             httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
-            httpURLConnection.setUseCaches (false);
+            httpURLConnection.setUseCaches(false);
             System.out.println(httpURLConnection.getResponseCode());
             Log.v(TAG, "Http DELETE response " + httpURLConnection.getResponseCode());
             success = true;

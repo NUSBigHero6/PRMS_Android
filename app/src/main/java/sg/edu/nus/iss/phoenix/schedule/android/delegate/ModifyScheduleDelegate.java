@@ -25,7 +25,7 @@ import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_B
  * Created by liu.cao on 18/9/2018.
  */
 
-public class ModifyScheduleDelegate  extends AsyncTask<ProgramSlot, Void, Boolean> {
+public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean> {
     // Tag for logging
     private static final String TAG = ModifyScheduleDelegate.class.getName();
 
@@ -38,7 +38,7 @@ public class ModifyScheduleDelegate  extends AsyncTask<ProgramSlot, Void, Boolea
     @Override
     protected Boolean doInBackground(ProgramSlot... params) {
         Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri,"update").buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, "update").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {
