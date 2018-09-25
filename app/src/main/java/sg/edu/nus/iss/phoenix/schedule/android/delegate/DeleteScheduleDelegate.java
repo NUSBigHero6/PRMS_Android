@@ -40,7 +40,7 @@ public class DeleteScheduleDelegate extends AsyncTask<String, Void, Boolean> {
             return new Boolean(false);
         }
         Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri, "delete").buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, "deleteProgramSlot").buildUpon().build();
         builtUri = Uri.withAppendedPath(builtUri, name).buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
