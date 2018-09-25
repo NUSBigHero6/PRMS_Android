@@ -2,6 +2,7 @@ package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,7 +20,7 @@ import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ReviewSelectProgramScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
-public class ReviewSelectScheduledProgramScreen extends AppCompatActivity {
+public class ReviewSelectScheduleScreen extends AppCompatActivity {
     // Tag for logging
     private static final String TAG = ReviewSelectProgramScreen.class.getName();
 
@@ -30,12 +31,21 @@ public class ReviewSelectScheduledProgramScreen extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review_select_scheduled_program);
+        setContentView(R.layout.activity_review_select_schedule);
 
         ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
         mPSadapter = new ProgramSlotAdapter(this, programSlots);
         mListView = (ListView) findViewById(R.id.review_select_ps_list);
         mListView.setAdapter(mPSadapter);
+
+        // Setup FAB to open EditorActivity
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.schedulefab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getManageScheduleController().selectCreateSchedule();
+            }
+        });
 
         // Setup the item selection listener
         mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -59,7 +69,7 @@ public class ReviewSelectScheduledProgramScreen extends AppCompatActivity {
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setSelection(0);
 
-        ControlFactory.getReviewSelectScheduledProgramController().onDisplay(this);
+        ControlFactory.getReviewSelectScheduleController().onDisplay(this);
     }
 
     @Override
@@ -83,7 +93,7 @@ public class ReviewSelectScheduledProgramScreen extends AppCompatActivity {
                 }
                 else {
                     Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
-                    ControlFactory.getReviewSelectScheduledProgramController().selectSchedule(selectedPS);
+                    ControlFactory.getReviewSelectScheduleController().selectSchedule(selectedPS);
                 }
         }
 

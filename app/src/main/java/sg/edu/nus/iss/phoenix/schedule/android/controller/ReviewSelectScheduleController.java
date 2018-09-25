@@ -7,35 +7,34 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
-import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduledProgramScreen;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 /**
  * Created by liu.cao on 18/9/2018.
  */
 
-public class ReviewSelectScheduledProgramController {
+public class ReviewSelectScheduleController {
     // Tag for logging.
-    private static final String TAG = ReviewSelectScheduledProgramController.class.getName();
+    private static final String TAG = ReviewSelectScheduleController.class.getName();
 
-    private ReviewSelectScheduledProgramScreen reviewSelectScheduledProgramScreen;
+    private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private ProgramSlot psSelected = null;
 
     public void startUseCase() {
         psSelected = null;
-        Intent intent = new Intent(MainController.getApp(), ReviewSelectScheduledProgramScreen.class);
+        Intent intent = new Intent(MainController.getApp(), ReviewSelectScheduleScreen.class);
         MainController.displayScreen(intent);
     }
 
-    public void onDisplay(ReviewSelectScheduledProgramScreen reviewSelectScheduledProgramScreen) {
-        this.reviewSelectScheduledProgramScreen = reviewSelectScheduledProgramScreen;
+    public void onDisplay(ReviewSelectScheduleScreen reviewSelectScheduleScreen) {
+        this.reviewSelectScheduleScreen = reviewSelectScheduleScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
     }
 
     public void schedulesRetrieved(List<ProgramSlot> programSlots) {
-        reviewSelectScheduledProgramScreen.showProgramSlots(programSlots);
+        reviewSelectScheduleScreen.showProgramSlots(programSlots);
     }
 
     public void selectSchedule(ProgramSlot programSlot) {

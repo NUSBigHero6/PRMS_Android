@@ -8,17 +8,10 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.android.ui.MaintainProgramScreen;
-import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ProgramListScreen;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
-import sg.edu.nus.iss.phoenix.schedule.android.delegate.CreateScheduleDelegate;
-import sg.edu.nus.iss.phoenix.schedule.android.delegate.DeleteScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.PresenterListScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ProducerListScreen;
-import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
+import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.AnnualSchedule;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
@@ -35,7 +28,7 @@ public class ManageScheduleController {
 
     private ProducerListScreen producerListScreen;
     private PresenterListScreen presenterListScreen;
-    private ScheduleListScreen scheduleListScreen;
+    private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private ScheduleScreen scheduleScreen;
     private WeeklySchedule weeklySchedule = null;
     private AnnualSchedule annualSchedule=null;
@@ -47,14 +40,14 @@ public class ManageScheduleController {
         MainController.displayScreen(intent);
     }
 
-    public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
-        this.scheduleListScreen = scheduleListScreen;
+    public void onDisplayScheduleList(ReviewSelectScheduleScreen reviewSelectScheduleScreen) {
+        this.reviewSelectScheduleScreen = reviewSelectScheduleScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
     }
 
 
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
-        scheduleListScreen.showSchedules(programSlots);
+        reviewSelectScheduleScreen.showProgramSlots(programSlots);
     }
     public void selectCreateSchedule() {
         progamSlot = null;
@@ -64,13 +57,16 @@ public class ManageScheduleController {
 
     public void selectEditSchedule(ProgramSlot progamSlot) {
         progamSlot = progamSlot;
-        Log.v(TAG, "Editing Schedule: " + progamSlot.getProgramName() + "...");
+        Log.v(TAG, "Editing Scheduled Program: " + progamSlot.getProgramName() + "...");
 
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         Bundle b = new Bundle();
-        b.putString("Name", progamSlot.getProgramName());
-     /*   b.putString("Description", radioManageSchedule.getRadioManageScheduleDescription());
-        b.putString("Duration", radioManageSchedule.getRadioManageScheduleDuration());*/
+        b.putString("DateofProgram", progamSlot.getDateOfProgram());
+        b.putString("ProgramName",progamSlot.getProgramName());
+        b.putString("ProducerName", progamSlot.getProducerName());
+        b.putString("PresenterName", progamSlot.getPresenterName());
+        b.putString("StartTime", progamSlot.getStartTime());
+        b.putString("Duration", progamSlot.getDuration());
         intent.putExtras(b);
         MainController.displayScreen(intent);
     }

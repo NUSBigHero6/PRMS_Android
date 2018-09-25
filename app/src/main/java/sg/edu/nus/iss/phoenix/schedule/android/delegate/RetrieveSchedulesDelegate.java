@@ -1,10 +1,7 @@
 package sg.edu.nus.iss.phoenix.schedule.android.delegate;
 
-import android.icu.text.DateFormat;
-import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,21 +13,14 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ReviewSelectProgramController;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ManageScheduleController;
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduledProgramController;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
-import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_RADIO_PROGRAM;
 
 /**
@@ -42,16 +32,16 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
     private static final String TAG = RetrieveSchedulesDelegate.class.getName();
 
     private ManageScheduleController scheduleController = null;
-    private ReviewSelectScheduledProgramController reviewSelectScheduledProgramController = null;
+    private ReviewSelectScheduleController reviewSelectScheduleController = null;
 
     public RetrieveSchedulesDelegate(ManageScheduleController scheduleController) {
-        this.reviewSelectScheduledProgramController = null;
+        this.reviewSelectScheduleController = null;
         this.scheduleController = scheduleController;
     }
 
-    public RetrieveSchedulesDelegate(ReviewSelectScheduledProgramController reviewSelectScheduledProgramController) {
+    public RetrieveSchedulesDelegate(ReviewSelectScheduleController reviewSelectScheduleController) {
         this.scheduleController = null;
-        this.reviewSelectScheduledProgramController = reviewSelectScheduledProgramController;
+        this.reviewSelectScheduleController = reviewSelectScheduleController;
     }
 
     @Override
@@ -119,8 +109,8 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
         if (scheduleController != null)
             scheduleController.SchedulesRetrieved(programSlots);
-        else if (reviewSelectScheduledProgramController != null)
-            reviewSelectScheduledProgramController.schedulesRetrieved(programSlots);
+        else if (reviewSelectScheduleController != null)
+            reviewSelectScheduleController.schedulesRetrieved(programSlots);
     }
 
 }

@@ -26,22 +26,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".authenticate.android.ui.LoginScreen">
+     <activity android:name=".authenticate.android.ui.LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".core.android.ui.MainScreen" />
         <activity android:name=".radioprogram.android.ui.ProgramListScreen" />
         <activity android:name=".radioprogram.android.ui.MaintainProgramScreen" />
         <activity android:name=".radioprogram.android.ui.ReviewSelectProgramScreen" />
-        <activity
-            android:name=".schedule.android.ui.ReviewSelectScheduledProgramScreen"
-            android:label="@string/title_activity_review_select_scheduled_program_screen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".schedule.android.ui.ScheduleListScreen"></activity>
+        <activity android:name=".schedule.android.ui.ReviewSelectScheduleScreen" />
     </application>
 
 </manifest>
