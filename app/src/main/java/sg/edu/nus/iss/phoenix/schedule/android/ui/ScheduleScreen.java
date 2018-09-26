@@ -171,6 +171,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 Log.v(TAG, "Deleting radio program " + rp2edit.getProgramName() + "...");
+                ControlFactory.getScheduleController().selectDeleteSchedule(rp2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
