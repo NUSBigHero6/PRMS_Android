@@ -69,6 +69,12 @@ public class ScheduleController {
         MainController.displayScreen(intent);
     }
 
+    public void selectCopySchedule(ProgramSlot progamSlot) {
+        this.progamSlot = progamSlot;
+        Log.v(TAG, "Copying Scheduled Program: " + progamSlot.getProgramName() + "...");
+        Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
+        MainController.displayScreen(intent);
+    }
 
     public void onDisplaySchedule(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;

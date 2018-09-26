@@ -50,9 +50,13 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 
         JSONObject json = new JSONObject();
         try {
-            json.put("name", params[0].getProgramName());
-            json.put("description", params[0].getPresenterName());
-            json.put("typicalDuration", params[0].getPresenterName());
+            json.put("duration", params[0].getDuration());
+            json.put("dateOfProgram", params[0].getDateOfProgram());
+            json.put("startTime", params[0].getStartTime());
+            json.put("program-name", params[0].getProgramName());
+            json.put("producer", params[0].getProducerName());
+            json.put("Presenter", params[0].getPresenterName());
+            // json.put("weeklyscheduleid", params[0].getWeeklyScheduleId());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }

@@ -149,12 +149,21 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new radioprogram, hide the "Delete" menu item.
+        // If this is a new schedule, hide the "Delete" menu item.
         if (ps2edit == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
-        return true;
+        // If this is a copyed scheudle, hide delete and update save
+        else if (TextUtils.isEmpty( ps2edit.getStartTime())) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+            MenuItem menuItemSave = menu.findItem(R.id.action_save);
+            menuItemSave.setVisible(false);
+            MenuItem menuItemSaveSchedule = menu.findItem(R.id.action_copysave);
+            menuItemSave.setVisible(true);
+        }
+        return  true;
     }
 
     @Override
@@ -174,7 +183,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                             mSStartTimeEditText.getText().toString(),
                             durationEditorText.getText().toString()
                     );
-                   // ControlFactory.getProgramController().selectCreateProgram(rp);
+                    //ControlFactory.getScheduleController().selectCreateSchedule(ps);
 
                 } else { // Edited.
                     Log.v(TAG, "Saving scheduled program " + ps2edit.getProgramName() + "...");
@@ -184,13 +193,17 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     ps2edit.setProducerName(producerEditorText.getText().toString());
                     ps2edit.setProgramName(programNameText.getText().toString());
                     ps2edit.setDateOfProgram( mSProgramDateEditText.getText().toString());
-                    // ControlFactory.getProgramController().selectCreateProgram(rp);
+                   // ControlFactory.getScheduleController().selectUpdateSchedule(ps2edit);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
+            case R.id.action_copysave:
+                Log.v(TAG, "Saving Copyed scheduled program " + ps2edit.getProgramName() + "...");
+                //ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
+                return true;
             case R.id.action_delete:
                 Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");
-                ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
+                //ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
@@ -198,7 +211,6 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
                 return true;
         }
-
         return true;
     }
 

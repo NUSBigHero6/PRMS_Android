@@ -88,12 +88,31 @@ public class ScheduleListScreen extends AppCompatActivity {
             // Respond to a click on the "View" menu option
             case R.id.action_view:
                 if (selectedPS == null) {
-                    // Prompt for the selection of a radio program.
+                    // Prompt for the selection of a schedule.
                     Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected schedule.");
                 } else {
                     Log.v(TAG, "Viewing schedule of program: " + selectedPS.getProgramName() + "...");
                     ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
+                }
+            case R.id.action_copySchedule :
+                if (selectedPS == null) {
+                    // Prompt for the selection of a schedule.
+                    Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "There is no selected schedule.");
+                } else {
+                    Log.v(TAG, "Copying schedule of program: " + selectedPS.getProgramName() + "...");
+                    selectedPS.setStartTime("");
+
+                    ProgramSlot ps = new ProgramSlot(
+                            selectedPS.getDateOfProgram(),
+                           selectedPS.getProgramName(),
+                            selectedPS.getProducerName(),
+                            selectedPS.getPresenterName(),
+                            "",
+                            selectedPS.getStartTime()
+                    );
+                    ControlFactory.getScheduleController().selectCopySchedule(ps);
                 }
         }
 

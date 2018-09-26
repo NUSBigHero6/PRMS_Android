@@ -9,6 +9,11 @@
 
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_copysave"
+        android:title="Save"
+        android:visible="false"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/action_save"
         android:title="@string/action_save"
 

@@ -76,7 +76,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_list, menu);
+        getMenuInflater().inflate(R.menu.menu_schedule_list, menu);
         return true;
     }
 
@@ -93,6 +93,25 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                 } else {
                     Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
                     ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
+                }
+            case R.id.action_copySchedule :
+                if (selectedPS == null) {
+                    // Prompt for the selection of a schedule.
+                    Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "There is no selected schedule.");
+                } else {
+                    Log.v(TAG, "Copying schedule of program: " + selectedPS.getProgramName() + "...");
+                    selectedPS.setStartTime("");
+
+                    ProgramSlot ps = new ProgramSlot(
+                            selectedPS.getDateOfProgram(),
+                            selectedPS.getProgramName(),
+                            selectedPS.getProducerName(),
+                            selectedPS.getPresenterName(),
+                            "",
+                            selectedPS.getStartTime()
+                    );
+                    ControlFactory.getScheduleController().selectCopySchedule(ps);
                 }
         }
 
