@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
@@ -30,6 +31,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private EditText mSProgramDateEditText;
     private EditText producerEditorText;
     private EditText presenterEditorText;
+    private EditText durationEditorText;
 
     String[] programs = {"News", "Movie", "Drama"};
     String[] producers = {"Me", "You", "We"};
@@ -58,6 +60,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
         programNameText.setClickable(true);
         programNameText.setOnClickListener(this);
+
+        durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
 
     }
 
@@ -199,6 +203,22 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         if (rp2edit != null) {
             programNameText.setText(rp2edit.getProgramName(), TextView.BufferType.NORMAL);
             programNameText.setKeyListener(null);
+
+            mSProgramDateEditText.setText(rp2edit.getDateOfProgram(), TextView.BufferType.NORMAL);
+            mSProgramDateEditText.setKeyListener(null);
+
+            mSStartTimeEditText.setText(rp2edit.getStartTime(), TextView.BufferType.NORMAL);
+            mSStartTimeEditText.setKeyListener(null);
+
+            producerEditorText.setText(rp2edit.getProducerName(), TextView.BufferType.NORMAL);
+            producerEditorText.setKeyListener(null);
+
+            presenterEditorText.setText(rp2edit.getPresenterName(), TextView.BufferType.NORMAL);
+            presenterEditorText.setKeyListener(null);
+
+            durationEditorText.setText(rp2edit.getDuration(), TextView.BufferType.NORMAL);
+            durationEditorText.setKeyListener(null);
+
         }
     }
 }

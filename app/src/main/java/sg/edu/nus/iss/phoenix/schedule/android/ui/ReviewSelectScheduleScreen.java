@@ -76,7 +76,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_review_select, menu);
+        getMenuInflater().inflate(R.menu.menu_list, menu);
         return true;
     }
 
@@ -85,14 +85,14 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
-            case R.id.action_select:
+            case R.id.action_view:
                 if (selectedPS == null) {
                     // Prompt for the selection of a radio program.
                     Toast.makeText(this, "Select a  schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected schedule.");
                 } else {
                     Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
-                    ControlFactory.getReviewSelectScheduleController().selectSchedule(selectedPS);
+                    ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
                 }
         }
 
