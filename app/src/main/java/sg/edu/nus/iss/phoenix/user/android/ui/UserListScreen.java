@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,18 @@ public class UserListScreen extends AppCompatActivity {
                 // your stuff
             }
         });
+
+        // Setup userFab to open edit activity
+        FloatingActionButton userFab = (FloatingActionButton) findViewById(R.id.userFab);
+        userFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getUserController().selectCreateUser();
+            }
+        });
+        mListView = (ListView) findViewById(R.id.user_list);
+        mListView.setAdapter(mUserAdapter);
+
     }
 
     @Override

@@ -1,12 +1,15 @@
 package sg.edu.nus.iss.phoenix.user.controller;
 
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
+import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
 import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
+import sg.edu.nus.iss.phoenix.user.delegate.CreateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.RetrieveUsersDelegate;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
@@ -34,7 +37,28 @@ public class UserController {
         MainController.displayScreen(intent);
     }
 
+    public void selectCreateUser(){
+        Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
+        MainController.displayScreen(intent);
+    }
+
     public void maintainedUser() {
         ControlFactory.getMainController().selectMaintainUser();
     }
+
+    public void selectCreateUser(User user){
+        new CreateUserDelegate(this).execute(user);
+
+    }
+
+    public void userCreated(boolean success) {
+        // Go back to ProgramList screen with refreshed programs.
+        startUseCase();
+    }
+
+    public void selectCancelCreateEditUser() {
+        // Go back to ProgramList screen with refreshed programs.
+        startUseCase();
+    }
+
 }
