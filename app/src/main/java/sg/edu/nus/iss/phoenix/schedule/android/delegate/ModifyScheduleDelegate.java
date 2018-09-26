@@ -38,7 +38,7 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
     @Override
     protected Boolean doInBackground(ProgramSlot... params) {
         Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri, "update").buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, "updateProgramSlot").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {
@@ -51,8 +51,8 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
         JSONObject json = new JSONObject();
         try {
             json.put("name", params[0].getProgramName());
-            json.put("description", params[0].getPresenterName());
-            json.put("typicalDuration", params[0].getPresenterName());
+            json.put("dateOfProgram", params[0].getDateOfProgram());
+            json.put("duration", params[0].getDuration());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }
