@@ -45,6 +45,10 @@ public class MainController {
         startUseCase(username);
     }
 
+    public void maintainedUser() {
+        startUseCase(username);
+    }
+
     public void selectLogout() {
         username = "<not logged in>";
         ControlFactory.getLoginController().logout();

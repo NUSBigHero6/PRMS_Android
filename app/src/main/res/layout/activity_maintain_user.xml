@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".user.android.ui.MaintainUserScreen">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        tools:text="Name" />
+    <EditText
+        android:id="@+id/maintain_user_name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Name" />
+
+    <TextView
+        android:id="@+id/maintain_user_password_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        tools:text="Password" />
+    <EditText
+        android:id="@+id/maintain_user_password_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        tools:text="Name" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Role"
+        tools:text="Role" />
+
+    <CheckBox android:id="@+id/checkbox_manager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Manager"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_producer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Producer"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_presenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Presenter"
+        android:onClick="onCheckboxClicked"/>
+    <CheckBox android:id="@+id/checkbox_administrator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="System Administrator"
+        android:onClick="onCheckboxClicked"/>
+</LinearLayout>

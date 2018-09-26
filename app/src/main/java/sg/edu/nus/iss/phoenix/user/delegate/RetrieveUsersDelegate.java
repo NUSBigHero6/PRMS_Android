@@ -77,9 +77,11 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String> {
                 JSONArray rpArray = reader.getJSONArray("userList");
 
                 for (int i = 0; i < rpArray.length(); i++) {
-                    JSONObject rpJson = rpArray.getJSONObject(i);
-                    String id = rpJson.getString("id");
-                    String name = rpJson.getString("name");
+                    JSONObject userJson = rpArray.getJSONObject(i);
+                    String id = userJson.getString("id");
+                    String name = userJson.getString("name");
+
+                    users.add(new User(id, name));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
