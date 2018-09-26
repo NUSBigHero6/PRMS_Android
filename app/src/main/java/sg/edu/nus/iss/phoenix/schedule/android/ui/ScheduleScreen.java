@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
@@ -25,11 +27,12 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = ScheduleScreen.class.getName();
     private EditText programNameText;
     KeyListener mRPNameEditTextKeyListener = null;
-    private ProgramSlot rp2edit = null;
+    private ProgramSlot ps2edit = null;
     private EditText mSStartTimeEditText;
     private EditText mSProgramDateEditText;
     private EditText producerEditorText;
     private EditText presenterEditorText;
+    private EditText durationEditorText;
 
     String[] programs = {"News", "Movie", "Drama"};
     String[] producers = {"Me", "You", "We"};
@@ -58,6 +61,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
         programNameText.setClickable(true);
         programNameText.setOnClickListener(this);
+
+        durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
 
     }
 
@@ -145,7 +150,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new radioprogram, hide the "Delete" menu item.
-        if (rp2edit == null) {
+        if (ps2edit == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
@@ -158,23 +163,39 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save radio program.
-                if (rp2edit == null) { // Newly created.
-                    Log.v(TAG, "Saving radio program " + programNameText.getText().toString() + "...");
+                // Save schedule.
+                if (ps2edit == null) { // Newly created.
+                    Log.v(TAG, "Saving scheduled program " + programNameText.getText().toString() + "...");
+                    ProgramSlot ps = new ProgramSlot(
+                            mSProgramDateEditText.getText().toString(),
+                            programNameText.getText().toString(),
+                            producerEditorText.getText().toString(),
+                            presenterEditorText.getText().toString(),
+                            mSStartTimeEditText.getText().toString(),
+                            durationEditorText.getText().toString()
+                    );
+                   // ControlFactory.getProgramController().selectCreateProgram(rp);
 
                 } else { // Edited.
-                    Log.v(TAG, "Saving radio program " + rp2edit.getProgramName() + "...");
-
-
+                    Log.v(TAG, "Saving scheduled program " + ps2edit.getProgramName() + "...");
+                    ps2edit.setDuration(durationEditorText.getText().toString());
+                    ps2edit.setStartTime(mSStartTimeEditText.getText().toString());
+                    ps2edit.setPresenterName(presenterEditorText.getText().toString());
+                    ps2edit.setProducerName(producerEditorText.getText().toString());
+                    ps2edit.setProgramName(programNameText.getText().toString());
+                    ps2edit.setDateOfProgram( mSProgramDateEditText.getText().toString());
+                    // ControlFactory.getProgramController().selectCreateProgram(rp);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                Log.v(TAG, "Deleting radio program " + rp2edit.getProgramName() + "...");
+                Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");
+                ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
                 Log.v(TAG, "Canceling creating/editing radio program...");
+                ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
                 return true;
         }
 
@@ -183,22 +204,38 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onBackPressed() {
-        Log.v(TAG, "Canceling creating/editing radio program...");
-        //ControlFactory.getProgramController().selectCancelCreateEditProgram();
+        Log.v(TAG, "Canceling creating/editing schedule...");
+        ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
     }
 
     public void createProgramSlot() {
-        this.rp2edit = null;
+        this.ps2edit = null;
         programNameText.setText("", TextView.BufferType.EDITABLE);
 
         programNameText.setKeyListener(mRPNameEditTextKeyListener);
     }
 
-    public void editProgramSlot(ProgramSlot rp2edit) {
-        this.rp2edit = rp2edit;
-        if (rp2edit != null) {
-            programNameText.setText(rp2edit.getProgramName(), TextView.BufferType.NORMAL);
+    public void editProgramSlot(ProgramSlot ps) {
+        this.ps2edit = ps;
+        if (ps2edit != null) {
+            programNameText.setText(ps2edit.getProgramName(), TextView.BufferType.NORMAL);
             programNameText.setKeyListener(null);
+
+            mSProgramDateEditText.setText(ps2edit.getDateOfProgram(), TextView.BufferType.NORMAL);
+            mSProgramDateEditText.setKeyListener(null);
+
+            mSStartTimeEditText.setText(ps2edit.getStartTime(), TextView.BufferType.NORMAL);
+            mSStartTimeEditText.setKeyListener(null);
+
+            producerEditorText.setText(ps2edit.getProducerName(), TextView.BufferType.NORMAL);
+            producerEditorText.setKeyListener(null);
+
+            presenterEditorText.setText(ps2edit.getPresenterName(), TextView.BufferType.NORMAL);
+            presenterEditorText.setKeyListener(null);
+
+            durationEditorText.setText(ps2edit.getDuration(), TextView.BufferType.NORMAL);
+            durationEditorText.setKeyListener(null);
+
         }
     }
 }

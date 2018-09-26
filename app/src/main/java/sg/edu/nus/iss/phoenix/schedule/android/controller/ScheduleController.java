@@ -63,18 +63,9 @@ public class ScheduleController {
 
 
     public void selectEditSchedule(ProgramSlot progamSlot) {
-        progamSlot = progamSlot;
+        this.progamSlot = progamSlot;
         Log.v(TAG, "Editing Scheduled Program: " + progamSlot.getProgramName() + "...");
-
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
-        Bundle b = new Bundle();
-        b.putString("DateofProgram", progamSlot.getDateOfProgram());
-        b.putString("ProgramName", progamSlot.getProgramName());
-        b.putString("ProducerName", progamSlot.getProducerName());
-        b.putString("PresenterName", progamSlot.getPresenterName());
-        b.putString("StartTime", progamSlot.getStartTime());
-        b.putString("Duration", progamSlot.getDuration());
-        intent.putExtras(b);
         MainController.displayScreen(intent);
     }
 
@@ -128,7 +119,8 @@ public class ScheduleController {
 
     public void onDisplayScheduleTest(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;
-        if (progamSlot == null)
+
+        if (this.progamSlot == null)
             this.scheduleScreen.createProgramSlot();
 
         else
