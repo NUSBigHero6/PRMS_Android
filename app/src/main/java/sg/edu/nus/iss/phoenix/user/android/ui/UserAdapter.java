@@ -35,7 +35,7 @@ public class UserAdapter extends ArrayAdapter<User> {
                     R.layout.activity_user, parent, false);
         }
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+        TextView tvName = (TextView) listItemView.findViewById(R.id.tvName);
         tvName.setText(user.getName());
 
         return listItemView;

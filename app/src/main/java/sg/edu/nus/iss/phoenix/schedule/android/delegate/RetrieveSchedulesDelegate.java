@@ -21,6 +21,7 @@ import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
+import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_RADIO_PROGRAM;
 
 /**
@@ -46,8 +47,7 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Uri builtUri1 = Uri.parse(PRMS_BASE_URL_RADIO_PROGRAM).buildUpon().build();
-
+        Uri builtUri1 = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
         Uri builtUri = Uri.withAppendedPath(builtUri1, params[0]).buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
@@ -68,8 +68,8 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) {
                 //hardcode here , waiting for backend service
-                // jsonResp = scanner.next();
-                jsonResp = "{\"psList\":[{\"date\":\"2018-9-20\",\"producername\":\"allen\",\"presentername\":\"jim\",\"programname\":\"TV show\",\"starttime\":\"9pm\",\"duration\":\"00:30:00+07:30\"},{\"date\":\"2018-9-21\",\"producername\":\"nick\",\"presentername\":\"mary\",\"programname\":\"music show\",\"starttime\":\"10pm\",\"duration\":\"00:30:00+07:30\"}]}";
+                jsonResp = scanner.next();
+                //jsonResp = "{\"psList\":[{\"date\":\"2018-9-20\",\"producername\":\"allen\",\"presentername\":\"jim\",\"programname\":\"TV show\",\"starttime\":\"9pm\",\"duration\":\"00:30:00+07:30\"},{\"date\":\"2018-9-21\",\"producername\":\"nick\",\"presentername\":\"mary\",\"programname\":\"music show\",\"starttime\":\"10pm\",\"duration\":\"00:30:00+07:30\"}]}";
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,11 +91,17 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
                 for (int i = 0; i < rpArray.length(); i++) {
                     JSONObject psJson = rpArray.getJSONObject(i);
-                    String date = psJson.getString("date");
-                    String producername = psJson.getString("producername");
-                    String presentername = psJson.getString("presentername");
-                    String programname = psJson.getString("programname");
-                    String starttime = psJson.getString("starttime");
+                    //Allen's initial code
+//                    String date = psJson.getString("date");
+//                    String producername = psJson.getString("producername");
+//                    String presentername = psJson.getString("presentername");
+//                    String programname = psJson.getString("programname");
+//                    String starttime = psJson.getString("starttime");
+                    String date = psJson.getString("dateOfProgram");
+                    String producername = psJson.getString("producer");
+                    String presentername = psJson.getString("presenter");
+                    String programname = psJson.getString("programName");
+                    String starttime = psJson.getString("startTime");
                     String duration = psJson.getString("duration");
                     programSlots.add(new ProgramSlot(date, programname, producername, presentername, starttime, duration));
                 }

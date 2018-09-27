@@ -25,7 +25,7 @@ import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_B
 
 public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean> {
     // Tag for logging
-    private static final String TAG = CreateProgramDelegate.class.getName();
+    private static final String TAG = CreateScheduleDelegate.class.getName();
 
     private final ScheduleController scheduleController;
 
@@ -36,7 +36,7 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
     @Override
     protected Boolean doInBackground(ProgramSlot... params) {
         Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri, "create").buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri, "createProgramSlot").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {
@@ -55,7 +55,6 @@ public class CreateScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
             json.put("producer", params[0].getProducerName());
             json.put("Presenter", params[0].getPresenterName());
            // json.put("weeklyscheduleid", params[0].getWeeklyScheduleId());
-
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }

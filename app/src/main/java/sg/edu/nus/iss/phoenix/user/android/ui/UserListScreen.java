@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,15 @@ public class UserListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
+
+        // Setup FAB to open EditorActivity
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.userFab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getUserController().selectCreateUser();
+            }
+        });
 
         // Construct the data source
         ArrayList<User> arrayOfUsers = new ArrayList<User>();

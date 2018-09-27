@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.phoenix.schedule.android.delegate;
+package sg.edu.nus.iss.phoenix.user.delegate;
 
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,32 +13,30 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.UpdateProgramDelegate;
-import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
-import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.user.controller.UserController;
+import sg.edu.nus.iss.phoenix.user.entity.User;
 
-import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
+import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
+
 
 /**
- * Created by liu.cao on 18/9/2018.
+ * Created by wengweichen on 26/9/18.
  */
 
-public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean> {
+public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
     // Tag for logging
-    private static final String TAG = ModifyScheduleDelegate.class.getName();
+    private static final String TAG = CreateUserDelegate.class.getName();
 
-    private final ScheduleController scheduleController;
+    private final UserController userController;
 
-    public ModifyScheduleDelegate(ScheduleController scheduleController) {
-        this.scheduleController = scheduleController;
+    public CreateUserDelegate(UserController userController) {
+        this.userController = userController;
     }
 
     @Override
-    protected Boolean doInBackground(ProgramSlot... params) {
-        Uri builtUri = Uri.parse(PRMS_BASE_URL_PROGRAM_SLOT).buildUpon().build();
-        builtUri = Uri.withAppendedPath(builtUri, "updateProgramSlot").buildUpon().build();
+    protected Boolean doInBackground(User... params) {
+        Uri builtUri = Uri.parse(PRMS_BASE_URL_USER).buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri,"create").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {
@@ -50,13 +48,10 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 
         JSONObject json = new JSONObject();
         try {
-            json.put("duration", params[0].getDuration());
-            json.put("dateOfProgram", params[0].getDateOfProgram());
-            json.put("startTime", params[0].getStartTime());
-            json.put("program-name", params[0].getProgramName());
-            json.put("producer", params[0].getProducerName());
-            json.put("Presenter", params[0].getPresenterName());
-            // json.put("weeklyscheduleid", params[0].getWeeklyScheduleId());
+            json.put("id", params[0].getId());
+            json.put("name", params[0].getName());
+            json.put("password", params[0].getPassword());
+            json.put("roles", params[0].getRoles());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }
@@ -66,15 +61,15 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
         DataOutputStream dos = null;
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setDoInput(true);
             httpURLConnection.setInstanceFollowRedirects(false);
-            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestMethod("PUT");
             httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
+            httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             dos = new DataOutputStream(httpURLConnection.getOutputStream());
             dos.writeUTF(json.toString());
-            dos.write(512);
-            Log.v(TAG, "Http POST response " + httpURLConnection.getResponseCode());
+            dos.write(256);
+            Log.v(TAG, "Http PUT response " + httpURLConnection.getResponseCode());
             success = true;
         } catch (IOException exception) {
             Log.v(TAG, exception.getMessage());
@@ -94,6 +89,6 @@ public class ModifyScheduleDelegate extends AsyncTask<ProgramSlot, Void, Boolean
 
     @Override
     protected void onPostExecute(Boolean result) {
-        scheduleController.ScheduleUpdated(result.booleanValue());
+        userController.userCreated(result.booleanValue());
     }
 }

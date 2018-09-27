@@ -31,7 +31,7 @@ public class ReviewSelectScheduleController {
 
     public void onDisplay(ReviewSelectScheduleScreen reviewSelectScheduleScreen) {
         this.reviewSelectScheduleScreen = reviewSelectScheduleScreen;
-        new RetrieveSchedulesDelegate(this).execute("all");
+        new RetrieveSchedulesDelegate(this).execute("allProgramSlot");
     }
 
     public void schedulesRetrieved(List<ProgramSlot> programSlots) {

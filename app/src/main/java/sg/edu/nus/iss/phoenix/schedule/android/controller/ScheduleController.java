@@ -10,6 +10,7 @@ import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.CreateScheduleDelegate;
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.CopyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.DeleteScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.ModifyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
@@ -85,12 +86,16 @@ public class ScheduleController {
             this.scheduleScreen.editProgramSlot(progamSlot);
     }
 
+/*    public void selectCopySchedule(ProgramSlot programSlot) {
+        new CopyScheduleDelegate(this).execute(programSlot);
+    }*/
+
     public void selectUpdateSchedule(ProgramSlot programSlot) {
         new ModifyScheduleDelegate(this).execute(programSlot);
     }
 
     public void selectDeleteSchedule(ProgramSlot programSlot) {
-        new DeleteScheduleDelegate(this).execute(programSlot.getProgramName());
+        new DeleteScheduleDelegate(this).execute(programSlot.getDateOfProgram());
     }
 
     public void ScheduleDeleted(boolean success) {
@@ -99,6 +104,11 @@ public class ScheduleController {
     }
 
     public void ScheduleUpdated(boolean success) {
+        // Go back to ManageScheduleList screen with refreshed ManageSchedules.
+        startUseCase();
+    }
+
+    public void ScheduleCopied(boolean success) {
         // Go back to ManageScheduleList screen with refreshed ManageSchedules.
         startUseCase();
     }
