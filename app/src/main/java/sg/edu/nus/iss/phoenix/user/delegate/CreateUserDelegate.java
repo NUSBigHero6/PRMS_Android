@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
@@ -39,6 +41,7 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
         Uri builtUri = Uri.withAppendedPath(builtUri1, "create").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
+
         try {
             url = new URL(builtUri.toString());
         } catch (MalformedURLException e) {
@@ -47,13 +50,15 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
         }
         JSONObject userJson = new JSONObject();
         JSONObject userRoleJson = new JSONObject();
-        ArrayList<String> userRoles = new ArrayList<String>();
+        JSONArray userRoles = new JSONArray();
         try {
+            userRoleJson.put("role", "manager");
+            userRoleJson.put("accessPrivilege","manager");
+            userRoles.put(userRoleJson);
+
             userJson.put("id", params[0].getId());
             userJson.put("name", params[0].getName());
-
-            userRoleJson.put("role", "admin");
-            userRoleJson.put("accessPrivilege","create");
+            userJson.put("roles",userRoles);
 
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());

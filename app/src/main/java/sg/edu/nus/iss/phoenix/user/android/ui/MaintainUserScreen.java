@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
@@ -33,7 +34,7 @@ public class MaintainUserScreen extends AppCompatActivity {
 
         // Find all relevant views that we will need to read user input from
         userName = (EditText) findViewById(R.id.user_name_text_view);
-//        mRPDescEditText = (EditText) findViewById(R.id.maintain_program_desc_text_view);
+        userRole = (EditText) findViewById(R.id.user_role_text_view);
 //        mDurationEditText = (EditText) findViewById(R.id.maintain_program_duration_text_view);
 //        // Keep the KeyListener for name EditText so as to enable editing after disabling it.
 //        mRPNameEditTextKeyListener = mRPNameEditText.getKeyListener();
@@ -71,7 +72,11 @@ public class MaintainUserScreen extends AppCompatActivity {
                 // Save user.
 //                if (useredit == null) { // Newly created.
                     Log.v(TAG, "Saving user " + userName.getText().toString());
-                    User user = new User("1",userName.getText().toString());
+                    // Set User Information
+                    User user = new User(userName.getText().toString(),userName.getText().toString());
+                    Role role = new Role();
+                    role.setRole(userRole.getText().toString());
+                    role.setAccessPrivilege(userRole.getText().toString());
                     ControlFactory.getUserController().selectCreateUser(user);
 //                }
 //                else { // Edited.
@@ -81,7 +86,7 @@ public class MaintainUserScreen extends AppCompatActivity {
 //                return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                Log.v(TAG, "Deleting radio program ");
+                Log.v(TAG, "Deleting user ");
 //                ControlFactory.getProgramController().selectDeleteProgram(rp2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
@@ -96,7 +101,7 @@ public class MaintainUserScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Log.v(TAG, "Canceling creating/editing radio program...");
+        Log.v(TAG, "Canceling creating/editing user...");
         ControlFactory.getUserController().selectCancelCreateEditUser();
     }
 

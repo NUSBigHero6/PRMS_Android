@@ -11,6 +11,7 @@ import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
 import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.delegate.CreateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.RetrieveUsersDelegate;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
