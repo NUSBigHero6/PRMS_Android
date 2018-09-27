@@ -89,13 +89,13 @@ public class MaintainUserScreen extends AppCompatActivity {
                 }
                 else { // Edited.
                     Log.v(TAG, "Saving user " + userName.getText() + "...");
-//                    ControlFactory.getProgramController().selectUpdateProgram(rp2edit);
+                    ControlFactory.getUserController().selectUpdateUser(user2edit);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 Log.v(TAG, "Deleting user ");
-//                ControlFactory.getProgramController().selectDeleteProgram(rp2edit);
+                ControlFactory.getUserController().selectDeleteUser(user2edit);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
@@ -116,9 +116,11 @@ public class MaintainUserScreen extends AppCompatActivity {
 
     public void editUser(User user2edit){
         this.user2edit = user2edit;
-        userName.setText(user2edit.getName(),TextView.BufferType.EDITABLE);
-        userRole.setText("manager",TextView.BufferType.EDITABLE);
-        userName.setKeyListener(null);
+        if(user2edit != null){
+            userName.setText(user2edit.getName(),TextView.BufferType.EDITABLE);
+            userRole.setText("manager",TextView.BufferType.EDITABLE);
+            userName.setKeyListener(null);
+        }
     }
 
     @Override

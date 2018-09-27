@@ -87,6 +87,7 @@ public class UserListScreen extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
             case R.id.action_view:
+                selectedUser = new User("hello","hello");
                 if (selectedUser == null) {
                     // Prompt for the selection of a user.
                     Toast.makeText(this, "Select a user first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();

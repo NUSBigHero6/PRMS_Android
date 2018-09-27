@@ -10,7 +10,9 @@ import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
 import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
 import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.delegate.CreateUserDelegate;
+import sg.edu.nus.iss.phoenix.user.delegate.DeleteUserDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.RetrieveUsersDelegate;
+import sg.edu.nus.iss.phoenix.user.delegate.UpdateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
@@ -70,13 +72,29 @@ public class UserController {
 
     public void selectEditUser(User user){
         user2edit = user;
-        Log.v(TAG, "Editing radio program: " + user.getName() + "...");
+        Log.v(TAG, "Editing user: " + user.getName() + "...");
         Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
         MainController.displayScreen(intent);
     }
 
     public void selectCancelCreateEditUser() {
         // Go back to ProgramList screen with refreshed programs.
+        startUseCase();
+    }
+
+    public void selectUpdateUser(User user) {
+        new UpdateUserDelegate(this).execute(user);
+    }
+
+    public void userUpdated(boolean success){
+        startUseCase();
+    }
+
+    public void selectDeleteUser(User user) {
+        new DeleteUserDelegate(this).execute(user.getId());
+    }
+
+    public void userDeleted(boolean success){
         startUseCase();
     }
 
