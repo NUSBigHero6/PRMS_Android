@@ -23,6 +23,8 @@ public class UserController {
     private static final String TAG = UserController.class.getName();
 
     private UserListScreen userListScreen;
+    private MaintainUserScreen maintainUserScreen;
+    private User user2edit = null;
 
     public void onDisplayUserList(UserListScreen userListScreen) {
         this.userListScreen = userListScreen;
@@ -30,12 +32,21 @@ public class UserController {
     }
 
     public void usersRetrieved(List<User> users) {
+        Log.v("Users Retrieved",users.toString());
         userListScreen.showUsers(users);
     }
 
     public void startUseCase() {
         Intent intent = new Intent(MainController.getApp(), UserListScreen.class);
         MainController.displayScreen(intent);
+    }
+
+    public void onDisplayUser(MaintainUserScreen maintainUserScreen){
+        this.maintainUserScreen = maintainUserScreen;
+        if (user2edit == null)
+            maintainUserScreen.createUser();
+        else
+            maintainUserScreen.editUser(user2edit);
     }
 
     public void selectCreateUser(){
@@ -55,6 +66,13 @@ public class UserController {
     public void userCreated(boolean success) {
         // Go back to ProgramList screen with refreshed programs.
         startUseCase();
+    }
+
+    public void selectEditUser(User user){
+        user2edit = user;
+        Log.v(TAG, "Editing radio program: " + user.getName() + "...");
+        Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
+        MainController.displayScreen(intent);
     }
 
     public void selectCancelCreateEditUser() {

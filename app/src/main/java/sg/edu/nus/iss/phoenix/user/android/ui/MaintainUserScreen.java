@@ -1,13 +1,16 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -22,10 +25,16 @@ public class MaintainUserScreen extends AppCompatActivity {
     // Tag for logging
     private static final String TAG = MaintainUserScreen.class.getName();
 
-    private User useredit = null;
+    private User user2edit = null;
     private EditText userName;
     private EditText userRole;
+    KeyListener mUserNameEditTextKeyListener = null;
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        ControlFactory.getUserController().onDisplayUser(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +44,11 @@ public class MaintainUserScreen extends AppCompatActivity {
         // Find all relevant views that we will need to read user input from
         userName = (EditText) findViewById(R.id.user_name_text_view);
         userRole = (EditText) findViewById(R.id.user_role_text_view);
-//        mDurationEditText = (EditText) findViewById(R.id.maintain_program_duration_text_view);
-//        // Keep the KeyListener for name EditText so as to enable editing after disabling it.
-//        mRPNameEditTextKeyListener = mRPNameEditText.getKeyListener();
+        // Keep the KeyListener for name EditText so as to enable editing after disabling it.
+        mUserNameEditTextKeyListener = userName.getKeyListener();
     }
 
-//    @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
@@ -56,7 +64,7 @@ public class MaintainUserScreen extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new radioprogram, hide the "Delete" menu item.
-        if (useredit == null) {
+        if (user2edit == null) {
             MenuItem menuItem = menu.findItem(R.id.action_delete);
             menuItem.setVisible(false);
         }
@@ -70,7 +78,7 @@ public class MaintainUserScreen extends AppCompatActivity {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save user.
-//                if (useredit == null) { // Newly created.
+                if (user2edit == null) { // Newly created.
                     Log.v(TAG, "Saving user " + userName.getText().toString());
                     // Set User Information
                     User user = new User(userName.getText().toString(),userName.getText().toString());
@@ -78,12 +86,12 @@ public class MaintainUserScreen extends AppCompatActivity {
                     role.setRole(userRole.getText().toString());
                     role.setAccessPrivilege(userRole.getText().toString());
                     ControlFactory.getUserController().selectCreateUser(user);
-//                }
-//                else { // Edited.
-//                    Log.v(TAG, "Saving user " + userName.getText() + "...");
+                }
+                else { // Edited.
+                    Log.v(TAG, "Saving user " + userName.getText() + "...");
 //                    ControlFactory.getProgramController().selectUpdateProgram(rp2edit);
-//                }
-//                return true;
+                }
+                return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 Log.v(TAG, "Deleting user ");
@@ -97,6 +105,20 @@ public class MaintainUserScreen extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    public void createUser(){
+        this.user2edit = null;
+        userName.setText("", TextView.BufferType.EDITABLE);
+        userRole.setText("",TextView.BufferType.EDITABLE);
+        userName.setKeyListener(mUserNameEditTextKeyListener);
+    }
+
+    public void editUser(User user2edit){
+        this.user2edit = user2edit;
+        userName.setText(user2edit.getName(),TextView.BufferType.EDITABLE);
+        userRole.setText("manager",TextView.BufferType.EDITABLE);
+        userName.setKeyListener(null);
     }
 
     @Override

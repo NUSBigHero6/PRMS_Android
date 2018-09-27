@@ -3,6 +3,7 @@ package sg.edu.nus.iss.phoenix.user.android.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class UserAdapter extends ArrayAdapter<User> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        User user = getItem(position);
+        User currentUser = getItem(position);
 
         View listItemView = convertView;
         if (listItemView == null) {
@@ -36,16 +37,13 @@ public class UserAdapter extends ArrayAdapter<User> {
                     R.layout.activity_user, parent, false);
         }
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
-        tvName.setText(user.getName());
+        EditText userName = (EditText)listItemView.findViewById(R.id.user_name_text_view);
+        userName.setText(currentUser.getName(), TextView.BufferType.NORMAL);
+        userName.setKeyListener(null); // This disables editing.
 
-        EditText userName = (EditText) convertView.findViewById(R.id.user_name_text_view);
-        userName.setText(user.getName(), TextView.BufferType.NORMAL);
-        userName.setKeyListener(null);
-
-//        EditText userRole = (EditText) convertView.findViewById(R.id.user_role_text_view);
-//        userRole.setText(user.getRoles(), TextView.BufferType.NORMAL);
-//        userRole.setKeyListener(null);
+        EditText userRole = (EditText)listItemView.findViewById(R.id.user_role_text_view);
+        userRole.setText("manager", TextView.BufferType.NORMAL);
+        userRole.setKeyListener(null);
 
         return listItemView;
     }

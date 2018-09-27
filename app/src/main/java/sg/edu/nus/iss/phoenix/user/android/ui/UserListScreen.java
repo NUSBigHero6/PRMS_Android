@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -61,8 +62,6 @@ public class UserListScreen extends AppCompatActivity {
                 ControlFactory.getUserController().selectCreateUser();
             }
         });
-        mListView = (ListView) findViewById(R.id.user_list);
-        mListView.setAdapter(mUserAdapter);
 
     }
 
@@ -75,18 +74,26 @@ public class UserListScreen extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_editor.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_list, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
             case R.id.action_view:
                 if (selectedUser == null) {
-                    // Prompt for the selection of a radio program.
+                    // Prompt for the selection of a user.
                     Toast.makeText(this, "Select a user first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected user.");
                 } else {
                     Log.v(TAG, "Viewing user: " + selectedUser.getName() + "...");
-                    //ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
+                    ControlFactory.getUserController().selectEditUser(selectedUser);
                 }
         }
 
