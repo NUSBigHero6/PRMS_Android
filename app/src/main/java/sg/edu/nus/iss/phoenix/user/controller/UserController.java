@@ -55,7 +55,7 @@ public class UserController {
     }
 
     public void maintainedUser() {
-        ControlFactory.getMainController().selectMaintainUser();
+        ControlFactory.getMainController().maintainedProgram();
     }
 
     public void selectCreateUser(User user){
