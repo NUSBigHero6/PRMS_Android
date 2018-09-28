@@ -10,6 +10,7 @@ import sg.edu.nus.iss.phoenix.user.android.ui.MaintainUserScreen;
 import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.delegate.CreateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.RetrieveUsersDelegate;
+import sg.edu.nus.iss.phoenix.user.delegate.DeleteUserDelegate;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
@@ -55,9 +56,23 @@ public class UserController {
         startUseCase();
     }
 
+    public void selectEditUser(User user){
+        editUser = user;
+        Intent intent = new Intent(MainController.getApp(), MaintainUserScreen.class);
+        MainController.displayScreen(intent);
+    }
+
+    public void userUpdated(boolean success){
+        startUseCase();
+    }
+
     public void startUseCase() {
         Intent intent = new Intent(MainController.getApp(), UserListScreen.class);
         MainController.displayScreen(intent);
+    }
+
+    public void selectDeleteUser(User user) {
+        new DeleteUserDelegate(this).execute(user.getId());
     }
 
     public void selectCancelCreateEditUser() {
@@ -66,5 +81,9 @@ public class UserController {
 
     public void maintainedUser() {
         ControlFactory.getMainController().maintainedUser();
+    }
+
+    public void userDeleted(boolean success){
+        startUseCase();
     }
 }
