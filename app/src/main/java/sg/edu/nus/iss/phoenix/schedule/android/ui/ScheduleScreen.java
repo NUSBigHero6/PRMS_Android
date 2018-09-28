@@ -161,7 +161,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             MenuItem menuItemSave = menu.findItem(R.id.action_save);
             menuItemSave.setVisible(false);
             MenuItem menuItemSaveSchedule = menu.findItem(R.id.action_copysave);
-            menuItemSave.setVisible(true);
+            menuItemSaveSchedule.setVisible(true);
         }
         return  true;
     }
@@ -203,7 +203,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 return true;
             case R.id.action_delete:
                 Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");
-                //ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
+                ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
+                ControlFactory.getScheduleController().ScheduleDeleted(true);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:

@@ -90,10 +90,12 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                     // Prompt for the selection of a radio program.
                     Toast.makeText(this, "Select a  schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected schedule.");
-                } else {
+                }
+                else {
                     Log.v(TAG, "Selected schedule: " + selectedPS.getProgramName() + "...");
                     ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
                 }
+                break;
             case R.id.action_copySchedule :
                 if (selectedPS == null) {
                     // Prompt for the selection of a schedule.
@@ -101,18 +103,17 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                     Log.v(TAG, "There is no selected schedule.");
                 } else {
                     Log.v(TAG, "Copying schedule of program: " + selectedPS.getProgramName() + "...");
-                    selectedPS.setStartTime("");
-
                     ProgramSlot ps = new ProgramSlot(
                             selectedPS.getDateOfProgram(),
                             selectedPS.getProgramName(),
                             selectedPS.getProducerName(),
                             selectedPS.getPresenterName(),
                             "",
-                            selectedPS.getStartTime()
+                            selectedPS.getDuration()
                     );
                     ControlFactory.getScheduleController().selectCopySchedule(ps);
                 }
+                break;
         }
 
         return true;

@@ -33,7 +33,7 @@ public class ScheduleController {
 
     private ProducerListScreen producerListScreen;
     private PresenterListScreen presenterListScreen;
-    private ScheduleListScreen scheduleListScreen;
+   // private ScheduleListScreen scheduleListScreen;
     private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private WeeklySchedule weeklySchedule = null;
     private AnnualSchedule annualSchedule = null;
@@ -47,7 +47,7 @@ public class ScheduleController {
     }
 
     public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
-        this.scheduleListScreen = scheduleListScreen;
+       // this.scheduleListScreen = scheduleListScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
     }
 
