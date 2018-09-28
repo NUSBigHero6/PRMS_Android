@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import sg.edu.nus.iss.phoenix.R;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
@@ -42,7 +44,10 @@ public class UserAdapter extends ArrayAdapter<User> {
         userName.setKeyListener(null); // This disables editing.
 
         EditText userRole = (EditText)listItemView.findViewById(R.id.user_role_text_view);
-        userRole.setText("manager", TextView.BufferType.NORMAL);
+
+        CharSequence rolesString = currentUser.getRoles().get(0).getRole();
+
+        userRole.setText(rolesString, TextView.BufferType.NORMAL);
         userRole.setKeyListener(null);
 
         return listItemView;

@@ -4,11 +4,12 @@ package sg.edu.nus.iss.phoenix.user.entity;
  * Created by wengweichen on 25/9/18.
  */
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private String id;
     private String name;
-    private ArrayList<Role> roles = new ArrayList<Role>();
+    private List<Role> roles = new ArrayList<Role>();
 
     public User(String id, String name) {
         this.id = id;
@@ -31,11 +32,11 @@ public class User {
         this.name = name;
     }
 
-    public ArrayList<Role> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(ArrayList<Role> roles) {
+    public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
 }

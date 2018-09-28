@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
@@ -58,6 +59,7 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String> {
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
             if (scanner.hasNext()) jsonResp = scanner.next();
+            Log.v(TAG, jsonResp.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -70,6 +72,7 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         List<User> users = new ArrayList<>();
+        List<Role> roles;
 
         if (result != null && !result.equals("")) {
             try {
@@ -80,7 +83,26 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String> {
                     JSONObject rpJson = rpArray.getJSONObject(i);
                     String id = rpJson.getString("id");
                     String name = rpJson.getString("name");
-                    users.add(new User(id,name));
+
+                    User user = new User(id,name);
+
+                    JSONArray rolesArray = rpJson.getJSONArray("roles");
+                    roles = new ArrayList<>(1);
+
+                    for (int j=0;j<rolesArray.length();j++) {
+                        JSONObject roleJSON = rolesArray.getJSONObject(j);
+
+                        String accessPrivilege = null;
+                        if (roleJSON.has("accessPrivilege")) {
+                            roleJSON.getString("accessPrivilege");
+                        }
+
+                        Role role = new Role(roleJSON.getString("role"), accessPrivilege);
+                        roles.add(role);
+
+                    }
+                    user.setRoles(roles);
+                    users.add(user);
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());

@@ -8,6 +8,14 @@ public class Role {
     private String role;
     private String accessPrivilege;
 
+    public Role() {}
+
+    public Role(String role, String accessPrivilege) {
+        this();
+        this.role = role;
+        this.accessPrivilege = accessPrivilege;
+    }
+
     public String getRole() {
         return role;
     }
