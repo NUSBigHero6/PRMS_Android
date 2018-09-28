@@ -98,7 +98,9 @@ public class MaintainUserScreen extends AppCompatActivity {
             case R.id.action_save:
                 // Save radio program.
                 if (editUser == null) { // Newly created.
-                    Log.v(TAG, "Saving user " + mUserNamEditText.getText().toString() + "...");
+                    Log.v(TAG, "Saving user " +
+                                mUserNamEditText.getText().toString() +
+                                " " + roles.size() + "...");
                     User user = new User(UUID.randomUUID().toString(),
                                     mUserNamEditText.getText().toString(),
                                     mUserPasswordEditText.getText().toString(),

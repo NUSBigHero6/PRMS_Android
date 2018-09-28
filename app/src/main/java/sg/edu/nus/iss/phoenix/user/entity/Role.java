@@ -10,6 +10,7 @@ public class Role {
 
     public Role(String role) {
         this.role = role;
+        this.accessPrivilege = role;
     }
 
     public String getRole() {

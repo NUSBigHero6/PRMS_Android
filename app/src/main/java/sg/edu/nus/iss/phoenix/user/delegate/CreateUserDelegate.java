@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
 import sg.edu.nus.iss.phoenix.user.entity.User;
@@ -47,11 +50,22 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
         }
 
         JSONObject json = new JSONObject();
+
         try {
             json.put("id", params[0].getId());
             json.put("name", params[0].getName());
             json.put("password", params[0].getPassword());
-            json.put("roles", params[0].getRoles());
+
+            /*for(int i =0; i < params[0].getRoles().size(); i++) {
+                JSONObject roleJson = new JSONObject();
+                jsonRoles.put(roleJson.put("role", params[0].getRoles().get(i).toString()));
+            }*/
+
+            Gson gson = new Gson();
+            //String rolesJson = ;
+
+            json.put("roles", gson.toJson(params[0].getRoles()));
+            Log.v(TAG, "" +json.toString());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }
