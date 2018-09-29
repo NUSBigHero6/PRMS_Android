@@ -23,13 +23,14 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 public class ProgramListScreen extends AppCompatActivity {
     // Tag for logging
     private static final String TAG = ProgramListScreen.class.getName();
-
     // private EditText mRPNameEditText;
     // private EditText mRPDescEditText;
     // private EditText mDurationEditText;
     private ListView mListView;
     private RadioProgramAdapter mRPAdapter;
     private RadioProgram selectedRP = null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class ProgramListScreen extends AppCompatActivity {
                 RadioProgram rp = (RadioProgram) adapterView.getItemAtPosition(position);
                 // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
                 selectedRP = rp;
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -110,6 +112,7 @@ public class ProgramListScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         ControlFactory.getProgramController().maintainedProgram();
     }
 
@@ -119,5 +122,7 @@ public class ProgramListScreen extends AppCompatActivity {
             mRPAdapter.add(radioPrograms.get(i));
         }
     }
+
+
 }
 

@@ -63,9 +63,9 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:id="@+id/maintain_starttime_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:text="2018-09-27 12:30:00"
-        tools:text="2018-09-27 12:30:00" />
+        android:inputType="time"
+        android:text="09:30:00"
+        tools:text="09:30:00" />
 
     <TextView
         android:layout_width="match_parent"

@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,16 +45,13 @@ public class UpdateUserDelegate extends AsyncTask<User, Void, Boolean> {
         }
 
         JSONObject json = new JSONObject();
-        JSONObject userRoleJson = new JSONObject();
-        JSONArray userRoles = new JSONArray();
         try {
-            userRoleJson.put("role", "producer");
-            userRoleJson.put("accessPrivilege","manager");
-            userRoles.put(userRoleJson);
 
             json.put("id", params[0].getId());
             json.put("name", params[0].getName());
-            json.put("role", userRoleJson);
+            json.put("roles", params[0].getRolesJson());
+
+            Log.v(TAG, json.toString());
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }

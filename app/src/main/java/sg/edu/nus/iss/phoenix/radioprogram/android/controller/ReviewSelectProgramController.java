@@ -16,6 +16,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.android.ui.MaintainProgramScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ProgramListScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.android.ui.ReviewSelectProgramScreen;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.user.android.ui.ReviewSelectScreen;
 
 public class ReviewSelectProgramController {
     // Tag for logging.
@@ -23,6 +24,7 @@ public class ReviewSelectProgramController {
 
     private ReviewSelectProgramScreen reviewSelectProgramScreen;
     private RadioProgram rpSelected = null;
+    private ReviewSelectProgramScreen.ProgramListScreenEvent listner = null;
 
     public void startUseCase() {
         rpSelected = null;
@@ -32,6 +34,7 @@ public class ReviewSelectProgramController {
 
     public void onDisplay(ReviewSelectProgramScreen reviewSelectProgramScreen) {
         this.reviewSelectProgramScreen = reviewSelectProgramScreen;
+        this.reviewSelectProgramScreen.setListener(this.listner);
         new RetrieveProgramsDelegate(this).execute("all");
     }
 
@@ -54,4 +57,10 @@ public class ReviewSelectProgramController {
         // At present, call the MainController instead.
         ControlFactory.getMainController().selectedProgram(rpSelected);
     }
+
+    public void setListner(ReviewSelectProgramScreen.ProgramListScreenEvent le){
+        this.listner = le;
+    }
+
+
 }

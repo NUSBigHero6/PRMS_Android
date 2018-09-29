@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
+import sg.edu.nus.iss.phoenix.user.entity.Role;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
@@ -82,7 +83,19 @@ public class RetrieveUsersDelegate extends AsyncTask<String, Void, String> {
                     String id = userJson.getString("id");
                     String name = userJson.getString("name");
 
-                    users.add(new User(id, name));
+                    JSONArray rolesArray = userJson.getJSONArray("roles");
+                    ArrayList<Role> roles = new ArrayList<>(1);
+                    for (int j=0;j<rolesArray.length();j++) {
+                        JSONObject roleJSON = rolesArray.getJSONObject(j);
+                        String accessPrivilege = null;
+                        if (roleJSON.has("accessPrivilege")) {
+                            roleJSON.getString("accessPrivilege");
+                        }
+                        Role role = new Role(roleJSON.getString("role"), accessPrivilege);
+                        roles.add(role);
+                    }
+
+                    users.add(new User(id, name, "", roles));
                 }
             } catch (JSONException e) {
                 Log.v(TAG, e.getMessage());
