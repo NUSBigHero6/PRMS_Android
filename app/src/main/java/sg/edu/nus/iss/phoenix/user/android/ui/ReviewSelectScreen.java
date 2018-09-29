@@ -1,7 +1,10 @@
 package sg.edu.nus.iss.phoenix.user.android.ui;
 
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +32,19 @@ public class ReviewSelectScreen extends AppCompatActivity {
     private FloatingActionButton fab;
     private static final String TAG = "[ReviewSelectScreen]";
     private String type;
+    private String searchText = null;
 
+    private ReviewSelectActionEvent listener = null;
+
+    public interface ReviewSelectActionEvent {
+        void onBackPressed();
+        void onItemSelected(User user);
+    }
+
+
+    public void setReviewSelectListeners(ReviewSelectActionEvent e){
+        this.listener = e;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,23 @@ public class ReviewSelectScreen extends AppCompatActivity {
         this.listItems = (ListView) findViewById(R.id.review_select_pm_list);
         this.fab = (FloatingActionButton) findViewById(R.id.selectUser);
         this.type = (String) getIntent().getStringExtra("type");
+
+        this.searchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ReviewSelectScreen.this.searchText = charSequence.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                ReviewSelectScreen.this.searchUsers(ReviewSelectScreen.this.searchText);
+            }
+        });
         // get all data
 
         ArrayList<User> users = new ArrayList<>();
@@ -50,6 +82,9 @@ public class ReviewSelectScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedUser = (User) adapterView.getItemAtPosition(position);
+                if(listener != null){
+                    listener.onItemSelected(selectedUser);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -65,9 +100,14 @@ public class ReviewSelectScreen extends AppCompatActivity {
         });
     }
 
+
+
     @Override
     public void onBackPressed(){
-        ControlFactory.getUserController();
+//        ControlFactory.getUserController();
+        if(this.listener != null) {
+            listener.onBackPressed();
+        }
     }
 
     public void displayUser(List<User> users) {
@@ -102,6 +142,10 @@ public class ReviewSelectScreen extends AppCompatActivity {
         listItems.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         listItems.setSelection(0);
         ControlFactory.getReviewSelectProducerPresentorController().onDisplayUserList(this, this.type);
+    }
+
+    public void searchUsers(String text){
+        ControlFactory.getReviewSelectProducerPresentorController().searchUsers(text, this.type);
     }
 
 }

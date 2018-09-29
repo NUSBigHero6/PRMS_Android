@@ -13,21 +13,10 @@ public class ReviewSelectProducerPresentorController {
 
     private static final String TAG = "[ReviewSelectProducerPresentor]";
     private ReviewSelectScreen rScreen ;
-    private String searchPrefix = null;
-
 
     public void onDisplayUserList(ReviewSelectScreen rsScreen, String type) {
         this.rScreen = rsScreen;
-        if (this.searchPrefix != null) {
-            new ProducerPresentorRetriveSearch(this, type).execute("all");
-        }
-        else {
-            new ProducerPresentorRetriveSearch(this, type).execute("search", this.searchPrefix);
-        }
-    }
-
-    public void setText(String prefix) {
-        this.searchPrefix = prefix;
+        new ProducerPresentorRetriveSearch(this, type).execute("all");
     }
 
     public void startUseCase(String type){
@@ -38,5 +27,9 @@ public class ReviewSelectProducerPresentorController {
 
     public void gotUsers(List<User> users) {
         rScreen.displayUser(users);
+    }
+
+    public void searchUsers(String prefix, String type) {
+        new ProducerPresentorRetriveSearch(this, type).execute("search", prefix);
     }
 }
