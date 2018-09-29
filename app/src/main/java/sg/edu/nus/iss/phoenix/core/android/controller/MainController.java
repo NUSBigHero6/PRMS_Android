@@ -77,7 +77,7 @@ public class MainController {
 
     // This is a dummy operation to test the invocation of Review Select Radio Program use case.
     public void selectedProgram(RadioProgram rpSelected) {
-        startUseCase(username);
+        ControlFactory.getProgramController().startUseCase();
     }
     public  void selectedScheduledProgram(ProgramSlot psSelected){startUseCase(username);}
 }
