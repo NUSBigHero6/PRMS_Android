@@ -11,6 +11,7 @@ import sg.edu.nus.iss.phoenix.user.android.ui.UserListScreen;
 import sg.edu.nus.iss.phoenix.user.delegate.CreateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.RetrieveUsersDelegate;
 import sg.edu.nus.iss.phoenix.user.delegate.DeleteUserDelegate;
+import sg.edu.nus.iss.phoenix.user.delegate.UpdateUserDelegate;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 /**
@@ -54,6 +55,10 @@ public class UserController {
 
     public void userCreated(boolean success) {
         startUseCase();
+    }
+
+    public void selectUpdateUser(User user) {
+        new UpdateUserDelegate(this).execute(user);
     }
 
     public void selectEditUser(User user){

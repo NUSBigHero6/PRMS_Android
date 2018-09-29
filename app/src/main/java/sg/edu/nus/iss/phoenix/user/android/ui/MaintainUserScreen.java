@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -24,6 +23,7 @@ public class MaintainUserScreen extends AppCompatActivity {
     // Tag for logging
     private static final String TAG = MaintainUserScreen.class.getName();
 
+    private EditText mIdEditText;
     private EditText mUserNamEditText;
     private EditText mUserPasswordEditText;
     private TextView passwordLabel;
@@ -41,6 +41,7 @@ public class MaintainUserScreen extends AppCompatActivity {
         setContentView(R.layout.activity_maintain_user);
 
         // Find all relevant views that we will need to read user input from
+        mIdEditText = (EditText) findViewById(R.id.maintain_id_text_view);
         mUserNamEditText = (EditText) findViewById(R.id.maintain_user_name_text_view);
         mUserPasswordEditText = (EditText) findViewById(R.id.maintain_user_password_text_view);
         passwordLabel  = (TextView) findViewById(R.id.maintain_user_password_label);
@@ -48,6 +49,7 @@ public class MaintainUserScreen extends AppCompatActivity {
         mProducerRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_producer);
         mPresenterRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_presenter);
         mAdminRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_administrator);
+
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
         mUserNameEditTextKeyListener = mUserNamEditText.getKeyListener();
     }
@@ -83,6 +85,8 @@ public class MaintainUserScreen extends AppCompatActivity {
 
     public void createUser() {
         this.editUser = null;
+
+        mIdEditText.setText("", TextView.BufferType.EDITABLE);
         mUserNamEditText.setText("", TextView.BufferType.EDITABLE);
         mUserNamEditText.setKeyListener(mUserNameEditTextKeyListener);
     }
@@ -93,21 +97,29 @@ public class MaintainUserScreen extends AppCompatActivity {
             mUserPasswordEditText.setVisibility(View.INVISIBLE);
             passwordLabel.setVisibility(View.INVISIBLE);
 
-            mUserNamEditText.setText(editUser.getName(), TextView.BufferType.NORMAL);
-            mUserNamEditText.setKeyListener(null);
+            mIdEditText.setText(editUser.getId(), TextView.BufferType.NORMAL);
+            mIdEditText.setKeyListener(null);
+
+            mUserNamEditText.setText(editUser.getName(), TextView.BufferType.EDITABLE);
 
             for(int i = 0; i < editUser.getRoles().size(); i++) {
-                if(editUser.getRoles().get(i).getRole() == "manager") {
+                String role = editUser.getRoles().get(i).getRole();
+
+                if(role.equals("manager")) {
                     mManagerRoleCheckbox.setChecked(true);
+                    roles.add(new Role("manager", "all"));
                 }
-                else if(editUser.getRoles().get(i).getRole() == "producer") {
+                else if(role.equals("producer")) {
                     mProducerRoleCheckbox.setChecked(true);
+                    roles.add(new Role("producer", "all"));
                 }
-                else if(editUser.getRoles().get(i).getRole() == "presenter") {
+                else if(role.equals("presenter")) {
                     mPresenterRoleCheckbox.setChecked(true);
+                    roles.add(new Role("presenter", "all"));
                 }
-                else if(editUser.getRoles().get(i).getRole() == "admin") {
+                else if(role.equals("admin")) {
                     mAdminRoleCheckbox.setChecked(true);
+                    roles.add(new Role("admin", "all"));
                 }
             }
         }
@@ -124,17 +136,16 @@ public class MaintainUserScreen extends AppCompatActivity {
                     Log.v(TAG, "Saving user " +
                                 mUserNamEditText.getText().toString() +
                                 " " + roles.size() + "...");
-                    User user = new User(UUID.randomUUID().toString(),
+                    User user = new User(mIdEditText.getText().toString(),
                                     mUserNamEditText.getText().toString(),
                                     mUserPasswordEditText.getText().toString(),
                                     roles);
                     ControlFactory.getUserController().selectCreateUser(user);
                 }
                 else { // Edited.
-                    //Log.v(TAG, "Saving radio program " + rp2edit.getRadioProgramName() + "...");
-                    /*rp2edit.setRadioProgramDescription(mRPDescEditText.getText().toString());
-                    rp2edit.setRadioProgramDuration(mDurationEditText.getText().toString());
-                    ControlFactory.getProgramController().selectUpdateProgram(rp2edit);*/
+                    editUser.setName(mUserNamEditText.getText().toString());
+                    editUser.setRoles(roles);
+                    ControlFactory.getUserController().selectUpdateUser(editUser);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
@@ -163,7 +174,7 @@ public class MaintainUserScreen extends AppCompatActivity {
                     roles.add(new Role("manager", "all"));
                 }
                 else {
-                    roles.remove(new Role("manager", "all"));
+                    roles.remove(findRoleIndex("manager"));
                 }
                 break;
             case R.id.checkbox_presenter:
@@ -171,7 +182,7 @@ public class MaintainUserScreen extends AppCompatActivity {
                     roles.add(new Role("presenter", "all"));
                 }
                 else{
-                    roles.remove(new Role("presenter", "all"));
+                    roles.remove(findRoleIndex("presenter"));
                 }
                 break;
             case R.id.checkbox_producer:
@@ -179,7 +190,7 @@ public class MaintainUserScreen extends AppCompatActivity {
                     roles.add(new Role("producer", "all"));
                 }
                 else{
-                    roles.add(new Role("producer", "all"));
+                    roles.remove(findRoleIndex("producer"));
                 }
                     break;
             case R.id.checkbox_administrator:
@@ -187,10 +198,23 @@ public class MaintainUserScreen extends AppCompatActivity {
                     roles.add(new Role("admin", "all"));
                 }
                 else{
-                    roles.add(new Role("admin", "all"));
+                    roles.remove(findRoleIndex("admin"));
                 }
                     break;
         }
+    }
+
+    protected String getUserId() {
+        return mUserNamEditText.getText().toString().split("\\s+")[0];
+    }
+
+    protected int findRoleIndex(String role) {
+        for(int i =0; i < roles.size(); i++) {
+            if(roles.get(i).getRole() == role) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override

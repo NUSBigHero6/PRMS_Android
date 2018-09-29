@@ -47,6 +47,7 @@ public class UserListScreen extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedUser = (User) adapterView.getItemAtPosition(position);
+                Log.v(TAG, "Viewing user: " + selectedUser.getName() + "...");
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -87,7 +88,6 @@ public class UserListScreen extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
             case R.id.action_view:
-                selectedUser = new User("hello","hello");
                 if (selectedUser == null) {
                     // Prompt for the selection of a user.
                     Toast.makeText(this, "Select a user first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();

@@ -68,7 +68,7 @@ public class LoginScreen extends AppCompatActivity {
 
     // Show the error and hide the data.
     public void showErrorMessage() {
-        mSearchResultsTextView.setVisibility(View.INVISIBLE);
+        //mSearchResultsTextView.setVisibility(View.INVISIBLE);
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
     }
 
