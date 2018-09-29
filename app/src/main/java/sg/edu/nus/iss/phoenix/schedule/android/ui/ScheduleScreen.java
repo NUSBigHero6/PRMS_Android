@@ -37,7 +37,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     String[] programs = {"News", "Movie", "Drama"};
     String[] producers = {"Me", "You", "We"};
     String[] presenters = {"She", "he", "Us"};
-    String[] duration = {"00:30:00", "01:00:00", "01:30:00"};
+    String[] durations = {"00:30:00", "01:00:00", "02:00:00"};
     ListView listView = null;
 
     @Override
@@ -63,6 +63,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         programNameText.setOnClickListener(this);
 
         durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
+        durationEditorText.setClickable(true);
+        durationEditorText.setOnClickListener(this);
 
     }
 
@@ -111,6 +113,21 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                         ViewGroup vg = (ViewGroup) view;
                         String program = programs[i];
                         programNameText.setText(program);
+                    }
+                });
+                break;
+
+            case R.id.maintain_programslot_duration_text_view:
+                listView = new ListView(this);
+                showDialogListView(v, "Duration list"); //improve if time permit
+                ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, durations);
+                listView.setAdapter(adapter3);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ViewGroup vg = (ViewGroup) view;
+                        String duration = durations[i];
+                        durationEditorText.setText(duration);
                     }
                 });
                 break;
@@ -183,7 +200,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                             mSStartTimeEditText.getText().toString(),
                             durationEditorText.getText().toString()
                     );
-                    //ControlFactory.getScheduleController().selectCreateSchedule(ps);
+                    ControlFactory.getScheduleController().selectCreateSchedule(ps);
 
                 } else { // Edited.
                     Log.v(TAG, "Saving scheduled program " + ps2edit.getProgramName() + "...");
@@ -193,13 +210,13 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     ps2edit.setProducerName(producerEditorText.getText().toString());
                     ps2edit.setProgramName(programNameText.getText().toString());
                     ps2edit.setDateOfProgram( mSProgramDateEditText.getText().toString());
-                   // ControlFactory.getScheduleController().selectUpdateSchedule(ps2edit);
+                   ControlFactory.getScheduleController().selectUpdateSchedule(ps2edit);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_copysave:
                 Log.v(TAG, "Saving Copyed scheduled program " + ps2edit.getProgramName() + "...");
-                //ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
+                ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
                 return true;
             case R.id.action_delete:
                 Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");

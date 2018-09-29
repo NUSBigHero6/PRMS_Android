@@ -5,6 +5,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ReviewSelectProgramController;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ReviewSelectScheduleController;
+import sg.edu.nus.iss.phoenix.user.controller.ReviewSelectProducerPresentorController;
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
 
 public class ControlFactory {
@@ -16,6 +17,7 @@ public class ControlFactory {
     //To get list of ProgramSlot
     private  static ReviewSelectScheduleController reviewSelectScheduleController = null;
     private  static UserController userController = null;
+    private  static ReviewSelectProducerPresentorController reviewSelectProducerPresentorController = null;
 
     public static MainController getMainController() {
         if (mainController == null) mainController = new MainController();
@@ -51,5 +53,11 @@ public class ControlFactory {
     public static ReviewSelectScheduleController getReviewSelectScheduleController() {
         if (reviewSelectScheduleController == null) reviewSelectScheduleController = new ReviewSelectScheduleController();
         return reviewSelectScheduleController;
+    }
+
+    public static ReviewSelectProducerPresentorController getReviewSelectProducerPresentorController(){
+        if(reviewSelectProducerPresentorController == null)
+            reviewSelectProducerPresentorController = new ReviewSelectProducerPresentorController();
+        return reviewSelectProducerPresentorController;
     }
 }
