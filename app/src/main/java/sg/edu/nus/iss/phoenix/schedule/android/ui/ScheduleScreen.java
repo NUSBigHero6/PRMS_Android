@@ -16,6 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -33,6 +36,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private EditText producerEditorText;
     private EditText presenterEditorText;
     private EditText durationEditorText;
+    private List<ProgramSlot> psList;
 
     String[] programs = {"News", "Movie", "Drama"};
     String[] producers = {"Me", "You", "We"};
@@ -192,7 +196,9 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 // Save schedule.
                 if (ps2edit == null) { // Newly created.
                     Log.v(TAG, "Saving scheduled program " + programNameText.getText().toString() + "...");
+
                     ProgramSlot ps = new ProgramSlot(
+                            "10",
                             mSProgramDateEditText.getText().toString(),
                             programNameText.getText().toString(),
                             producerEditorText.getText().toString(),
@@ -200,9 +206,17 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                             mSStartTimeEditText.getText().toString(),
                             durationEditorText.getText().toString()
                     );
+                    if(!IsProgamSlotValid(ps))
+                    {
+                        Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_SHORT).show();
+                        Log.v(TAG, "Pls fill in all the fields!");
+                    }
+                    else
                     ControlFactory.getScheduleController().selectCreateSchedule(ps);
 
-                } else { // Edited.
+                }
+
+                else { // Edited.
                     Log.v(TAG, "Saving scheduled program " + ps2edit.getProgramName() + "...");
                     ps2edit.setDuration(durationEditorText.getText().toString());
                     ps2edit.setStartTime(mSStartTimeEditText.getText().toString());
@@ -210,14 +224,29 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     ps2edit.setProducerName(producerEditorText.getText().toString());
                     ps2edit.setProgramName(programNameText.getText().toString());
                     ps2edit.setDateOfProgram( mSProgramDateEditText.getText().toString());
+                    if(!IsProgamSlotValid(ps2edit))
+                    {
+                        Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_LONG).show();
+                        Log.v(TAG, "Pls fill in all the fields!");
+                        return  false;
+                    }
+                    else
                    ControlFactory.getScheduleController().selectUpdateSchedule(ps2edit);
                 }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_copysave:
                 Log.v(TAG, "Saving Copyed scheduled program " + ps2edit.getProgramName() + "...");
-                ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
-                return true;
+                if(!IsProgamSlotValid(ps2edit))
+                {
+                    Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "Pls fill in all the fields!");
+                }
+                else {
+
+                    ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
+                    return true;
+                }
             case R.id.action_delete:
                 Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");
                 ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
@@ -267,6 +296,28 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             durationEditorText.setKeyListener(null);
 
         }
+    }
+    public  List<ProgramSlot> getPsList ()
+    {
+        return  psList;
+    }
+    public  void setPsList(List<ProgramSlot> psList)
+    {
+        this.psList=psList;
+    }
+    private boolean IsProgamSlotValid(ProgramSlot ps)
+    {
+        if(TextUtils.isEmpty(ps.getDateOfProgram())
+                || TextUtils.isEmpty(ps.getDuration())
+                ||TextUtils.isEmpty(ps.getPresenterName())
+                ||TextUtils.isEmpty(ps.getProducerName())
+                ||TextUtils.isEmpty(ps.getProgramName())
+                ||TextUtils.isEmpty(ps.getStartTime())
+                )
+            return  false;
+            else
+                return  true;
+
     }
 }
 

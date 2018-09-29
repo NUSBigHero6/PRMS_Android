@@ -105,12 +105,13 @@ public class ScheduleListScreen extends AppCompatActivity {
                     selectedPS.setStartTime("");
 
                     ProgramSlot ps = new ProgramSlot(
+                            "2",
                             selectedPS.getDateOfProgram(),
                            selectedPS.getProgramName(),
                             selectedPS.getProducerName(),
                             selectedPS.getPresenterName(),
                             "",
-                            selectedPS.getStartTime()
+                            selectedPS.getDuration()
                     );
                     ControlFactory.getScheduleController().selectCopySchedule(ps);
                 }

@@ -2,9 +2,13 @@ package sg.edu.nus.iss.phoenix.schedule.android.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
@@ -39,6 +43,8 @@ public class ScheduleController {
     private AnnualSchedule annualSchedule = null;
     private ProgramSlot progamSlot = null;
     private ScheduleScreen scheduleScreen;
+    private List<ProgramSlot> psLists;
+
 
     public void startUseCase() {
         progamSlot = null;
@@ -54,6 +60,7 @@ public class ScheduleController {
 
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
         reviewSelectScheduleScreen.showProgramSlots(programSlots);
+        psLists=programSlots;
     }
 
     public void selectCreateSchedule() {
@@ -95,7 +102,7 @@ public class ScheduleController {
     }
 
     public void selectDeleteSchedule(ProgramSlot programSlot) {
-        new DeleteScheduleDelegate(this).execute(programSlot.getDateOfProgram());
+        new DeleteScheduleDelegate(this).execute(programSlot.getProgramSlotId());
     }
 
     public void ScheduleDeleted(boolean success) {
@@ -135,12 +142,15 @@ public class ScheduleController {
 
     public void onDisplayScheduleTest(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;
+        this.scheduleScreen.setPsList(psLists);
 
-        if (this.progamSlot == null)
+        if (this.progamSlot == null) {
             this.scheduleScreen.createProgramSlot();
+        }
 
-        else
+        else {
             this.scheduleScreen.editProgramSlot(progamSlot);
+        }
     }
 
 

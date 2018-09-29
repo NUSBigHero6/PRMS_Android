@@ -48,7 +48,7 @@ public class ReviewSelectScheduleController {
 
     public void selectCancel() {
         psSelected = null;
-        Log.v(TAG, "Cancelled the seleciton of schedule.");
+        Log.v(TAG, "Cancelled the selection of schedule.");
         // To call the base use case controller without selection;
         // At present, call the MainController instead.
         ControlFactory.getMainController().selectedScheduledProgram(psSelected);

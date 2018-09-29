@@ -27,6 +27,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
     // private ArrayAdapter<String> adapter = null;
     private ListView mListView;
     private ProgramSlot selectedPS = null;
+    private String validPSId;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         mListView.setSelection(0);
 
         ControlFactory.getReviewSelectScheduleController().onDisplay(this);
+
     }
 
     @Override
@@ -104,6 +106,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
                 } else {
                     Log.v(TAG, "Copying schedule of program: " + selectedPS.getProgramName() + "...");
                     ProgramSlot ps = new ProgramSlot(
+                            validPSId,
                             selectedPS.getDateOfProgram(),
                             selectedPS.getProgramName(),
                             selectedPS.getProducerName(),
@@ -130,6 +133,8 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
             mPSadapter.add(programSlots.get(i));
         }
     }
+
+
 }
 
 
