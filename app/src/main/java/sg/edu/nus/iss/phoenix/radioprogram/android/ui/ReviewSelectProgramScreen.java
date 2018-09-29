@@ -25,9 +25,15 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
     private static final String TAG = ReviewSelectProgramScreen.class.getName();
 
     private RadioProgramAdapter mRPAdapter;
+    private ProgramListScreenEvent listner = null;
     // private ArrayAdapter<String> adapter = null;
     private ListView mListView;
     private RadioProgram selectedRP = null;
+
+    public interface ProgramListScreenEvent {
+        void onProgramSelectedEvent(RadioProgram program);
+        void onBackPressed();
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,9 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
                 RadioProgram rp = (RadioProgram) adapterView.getItemAtPosition(position);
                 // Log.v(TAG, "Radio program name is " + rp.getRadioProgramName());
                 selectedRP = rp;
+                if(ReviewSelectProgramScreen.this.listner != null) {
+                    listner.onProgramSelectedEvent(rp);
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -97,6 +106,9 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if(this.listner != null) {
+            listner.onBackPressed();
+        }
         ControlFactory.getReviewSelectProgramController().selectCancel();
     }
 
@@ -105,6 +117,10 @@ public class ReviewSelectProgramScreen extends AppCompatActivity {
         for (int i = 0; i < radioPrograms.size(); i++) {
             mRPAdapter.add(radioPrograms.get(i));
         }
+    }
+
+    public void setListener(ProgramListScreenEvent evt){
+        this.listner = evt;
     }
 }
 
