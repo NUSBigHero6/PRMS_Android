@@ -13,9 +13,12 @@ public class ReviewSelectProducerPresentorController {
 
     private static final String TAG = "[ReviewSelectProducerPresentor]";
     private ReviewSelectScreen rScreen ;
+    private ReviewSelectScreen.ReviewSelectActionEvent listener;
+
 
     public void onDisplayUserList(ReviewSelectScreen rsScreen, String type) {
         this.rScreen = rsScreen;
+        this.rScreen.setReviewSelectListeners(this.listener);
         new ProducerPresentorRetriveSearch(this, type).execute("all");
     }
 
@@ -31,5 +34,9 @@ public class ReviewSelectProducerPresentorController {
 
     public void searchUsers(String prefix, String type) {
         new ProducerPresentorRetriveSearch(this, type).execute("search", prefix);
+    }
+
+    public void setListener(ReviewSelectScreen.ReviewSelectActionEvent listener) {
+        this.listener = listener;
     }
 }
