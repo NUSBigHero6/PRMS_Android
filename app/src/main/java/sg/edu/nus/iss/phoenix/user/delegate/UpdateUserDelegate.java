@@ -13,33 +13,29 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import sg.edu.nus.iss.phoenix.user.controller.UserController;
 import sg.edu.nus.iss.phoenix.user.entity.User;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_USER;
 
-
 /**
- * Created by wengweichen on 26/9/18.
+ * Created by priyankajalan on 25/9/18.
  */
 
-public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
+public class UpdateUserDelegate extends AsyncTask<User, Void, Boolean> {
     // Tag for logging
-    private static final String TAG = CreateUserDelegate.class.getName();
+    private static final String TAG = UpdateUserDelegate.class.getName();
 
     private final UserController userController;
 
-    public CreateUserDelegate(UserController userController) {
+    public UpdateUserDelegate(UserController userController) {
         this.userController = userController;
     }
-
     @Override
     protected Boolean doInBackground(User... params) {
-        Uri builtUri1 = Uri.parse(PRMS_BASE_URL_USER).buildUpon().build();
-        Uri builtUri = Uri.withAppendedPath(builtUri1, "create").buildUpon().build();
+        Uri builtUri = Uri.parse(PRMS_BASE_URL_USER).buildUpon().build();
+        builtUri = Uri.withAppendedPath(builtUri,"update").buildUpon().build();
         Log.v(TAG, builtUri.toString());
         URL url = null;
         try {
@@ -48,34 +44,35 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
             Log.v(TAG, e.getMessage());
             return new Boolean(false);
         }
-        JSONObject userJson = new JSONObject();
+
+        JSONObject json = new JSONObject();
         JSONObject userRoleJson = new JSONObject();
         JSONArray userRoles = new JSONArray();
         try {
-            userRoleJson.put("role", "manager");
+            userRoleJson.put("role", "producer");
             userRoleJson.put("accessPrivilege","manager");
             userRoles.put(userRoleJson);
 
-            userJson.put("id", params[0].getId());
-            userJson.put("name", params[0].getName());
-            userJson.put("password", params[0].getPassword());
-            userJson.put("roles",userRoles);
+            json.put("id", params[0].getId());
+            json.put("name", params[0].getName());
+            json.put("role", userRoleJson);
         } catch (JSONException e) {
             Log.v(TAG, e.getMessage());
         }
+
         boolean success = false;
         HttpURLConnection httpURLConnection = null;
         DataOutputStream dos = null;
         try {
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setInstanceFollowRedirects(false);
-            httpURLConnection.setRequestMethod("PUT");
-            httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
             httpURLConnection.setDoInput(true);
+            httpURLConnection.setInstanceFollowRedirects(false);
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json; charset=utf8");
             httpURLConnection.setDoOutput(true);
             dos = new DataOutputStream(httpURLConnection.getOutputStream());
-            dos.writeUTF(userJson.toString());
-            dos.write(256);
+            dos.writeUTF(json.toString());
+            dos.write(512);
             Log.v(TAG, "Http POST response " + httpURLConnection.getResponseCode());
             success = true;
         } catch (IOException exception) {
@@ -96,6 +93,6 @@ public class CreateUserDelegate extends AsyncTask<User, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        userController.userCreated(result.booleanValue());
+        userController.userUpdated(result.booleanValue());
     }
 }

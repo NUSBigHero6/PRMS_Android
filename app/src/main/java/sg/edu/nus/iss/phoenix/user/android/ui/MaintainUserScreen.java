@@ -27,6 +27,10 @@ public class MaintainUserScreen extends AppCompatActivity {
     private EditText mUserNamEditText;
     private EditText mUserPasswordEditText;
     private TextView passwordLabel;
+    private CheckBox mManagerRoleCheckbox;
+    private CheckBox mProducerRoleCheckbox;
+    private CheckBox mPresenterRoleCheckbox;
+    private CheckBox mAdminRoleCheckbox;
     private User editUser = null;
     private ArrayList<Role> roles = new ArrayList<Role>();
     KeyListener mUserNameEditTextKeyListener = null;
@@ -40,6 +44,10 @@ public class MaintainUserScreen extends AppCompatActivity {
         mUserNamEditText = (EditText) findViewById(R.id.maintain_user_name_text_view);
         mUserPasswordEditText = (EditText) findViewById(R.id.maintain_user_password_text_view);
         passwordLabel  = (TextView) findViewById(R.id.maintain_user_password_label);
+        mManagerRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_manager);
+        mProducerRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_producer);
+        mPresenterRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_presenter);
+        mAdminRoleCheckbox  = (CheckBox) findViewById(R.id.checkbox_administrator);
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
         mUserNameEditTextKeyListener = mUserNamEditText.getKeyListener();
     }
@@ -87,6 +95,21 @@ public class MaintainUserScreen extends AppCompatActivity {
 
             mUserNamEditText.setText(editUser.getName(), TextView.BufferType.NORMAL);
             mUserNamEditText.setKeyListener(null);
+
+            for(int i = 0; i < editUser.getRoles().size(); i++) {
+                if(editUser.getRoles().get(i).getRole() == "manager") {
+                    mManagerRoleCheckbox.setChecked(true);
+                }
+                else if(editUser.getRoles().get(i).getRole() == "producer") {
+                    mProducerRoleCheckbox.setChecked(true);
+                }
+                else if(editUser.getRoles().get(i).getRole() == "presenter") {
+                    mPresenterRoleCheckbox.setChecked(true);
+                }
+                else if(editUser.getRoles().get(i).getRole() == "admin") {
+                    mAdminRoleCheckbox.setChecked(true);
+                }
+            }
         }
     }
 
@@ -98,7 +121,9 @@ public class MaintainUserScreen extends AppCompatActivity {
             case R.id.action_save:
                 // Save radio program.
                 if (editUser == null) { // Newly created.
-                    Log.v(TAG, "Saving user " + mUserNamEditText.getText().toString() + "...");
+                    Log.v(TAG, "Saving user " +
+                                mUserNamEditText.getText().toString() +
+                                " " + roles.size() + "...");
                     User user = new User(UUID.randomUUID().toString(),
                                     mUserNamEditText.getText().toString(),
                                     mUserPasswordEditText.getText().toString(),
@@ -114,12 +139,12 @@ public class MaintainUserScreen extends AppCompatActivity {
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
-                //Log.v(TAG, "Deleting radio program " + rp2edit.getRadioProgramName() + "...");
-                //ControlFactory.getProgramController().selectDeleteProgram(rp2edit);
+                Log.v(TAG, "Deleting user ");
+                ControlFactory.getUserController().selectDeleteUser(editUser);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
-                Log.v(TAG, "Canceling creating/editing user ...");
+                Log.v(TAG, "Canceling creating/editing user...");
                 ControlFactory.getUserController().selectCancelCreateEditUser();
                 return true;
         }
@@ -135,36 +160,43 @@ public class MaintainUserScreen extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.checkbox_manager:
                 if (checked) {
-                    roles.add(new Role("manager"));
+                    roles.add(new Role("manager", "all"));
                 }
                 else {
-                    roles.remove(new Role("manager"));
+                    roles.remove(new Role("manager", "all"));
                 }
                 break;
             case R.id.checkbox_presenter:
                 if (checked) {
-                    roles.add(new Role("presenter"));
+                    roles.add(new Role("presenter", "all"));
                 }
                 else{
-                    roles.remove(new Role("presenter"));
+                    roles.remove(new Role("presenter", "all"));
                 }
                 break;
             case R.id.checkbox_producer:
                 if (checked) {
-                    roles.add(new Role("producer"));
+                    roles.add(new Role("producer", "all"));
                 }
                 else{
-                    roles.add(new Role("producer"));
+                    roles.add(new Role("producer", "all"));
                 }
                     break;
             case R.id.checkbox_administrator:
                 if (checked) {
-                    roles.add(new Role("admin"));
+                    roles.add(new Role("admin", "all"));
                 }
                 else{
-                    roles.add(new Role("admin"));
+                    roles.add(new Role("admin", "all"));
                 }
                     break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Log.v(TAG, "Canceling creating/editing user...");
+        ControlFactory.getUserController().selectCancelCreateEditUser();
+    }
+
 }

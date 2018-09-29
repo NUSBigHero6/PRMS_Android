@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,15 +36,6 @@ public class UserListScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 
-        // Setup FAB to open EditorActivity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.userFab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ControlFactory.getUserController().selectCreateUser();
-            }
-        });
-
         // Construct the data source
         ArrayList<User> arrayOfUsers = new ArrayList<User>();
         mUserAdapter = new UserAdapter(this, arrayOfUsers);
@@ -61,6 +53,16 @@ public class UserListScreen extends AppCompatActivity {
                 // your stuff
             }
         });
+
+        // Setup userFab to open edit activity
+        FloatingActionButton userFab = (FloatingActionButton) findViewById(R.id.userFab);
+        userFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ControlFactory.getUserController().selectCreateUser();
+            }
+        });
+
     }
 
     @Override
@@ -72,18 +74,27 @@ public class UserListScreen extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_editor.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_list, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "View" menu option
             case R.id.action_view:
+                selectedUser = new User("hello","hello");
                 if (selectedUser == null) {
-                    // Prompt for the selection of a radio program.
+                    // Prompt for the selection of a user.
                     Toast.makeText(this, "Select a user first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "There is no selected user.");
                 } else {
                     Log.v(TAG, "Viewing user: " + selectedUser.getName() + "...");
-                    //ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
+                    ControlFactory.getUserController().selectEditUser(selectedUser);
                 }
         }
 

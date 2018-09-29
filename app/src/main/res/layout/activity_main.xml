@@ -83,6 +83,17 @@
             android:background="@color/btn_login_bg"
             android:text="@string/btn_user"
             android:textColor="@color/btn_login" />
+
+        <Button
+            android:id="@+id/button_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@color/btn_login_bg"
+            android:text="Maintain SELECT"
+            android:textColor="@color/btn_login" />
+
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
@@ -93,6 +104,7 @@
             android:text="@string/btn_logout"
             android:textColor="@color/btn_login" />
         <!-- Link to Login Screen -->
+
 
     </LinearLayout>
 
