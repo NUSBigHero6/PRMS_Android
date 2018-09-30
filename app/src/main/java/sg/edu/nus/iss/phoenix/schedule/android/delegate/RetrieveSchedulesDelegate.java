@@ -91,13 +91,14 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
 
                 for (int i = 0; i < rpArray.length(); i++) {
                     JSONObject psJson = rpArray.getJSONObject(i);
-                    String programSlotId=psJson.getString("programSlotId");
+
                     String date = psJson.getString("dateOfProgram");
                     String producername = psJson.getString("producer");
                     String presentername = psJson.getString("presenter");
                     String programname = psJson.getString("programName");
-                    String starttime = psJson.getString("startTime");
-                    String duration = psJson.getString("duration");
+                    String starttime = psJson.getString("startTime").replace("+07:30","");
+                    String duration = psJson.getString("duration").replace("+07:30","");
+                    String programSlotId=psJson.getString("programSlotId");
                     programSlots.add(new ProgramSlot(programSlotId,date, programname, producername, presentername, starttime, duration));
                 }
             } catch (JSONException e) {
