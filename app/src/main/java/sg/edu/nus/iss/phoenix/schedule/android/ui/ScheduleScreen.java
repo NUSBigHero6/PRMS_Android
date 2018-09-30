@@ -37,6 +37,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private EditText presenterEditorText;
     private EditText durationEditorText;
     private List<ProgramSlot> psList;
+    private String CurrentProgramSlotId;
 
     String[] programs = {"News", "Movie", "Drama"};
     String[] producers = {"Me", "You", "We"};
@@ -49,6 +50,9 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
+
+
+        CurrentProgramSlotId=getIntent().getStringExtra("CurrentProgramSlotId");
         programNameText = (EditText) findViewById(R.id.maintain_program_text_view);
         mRPNameEditTextKeyListener = programNameText.getKeyListener();
 
@@ -198,7 +202,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     Log.v(TAG, "Saving scheduled program " + programNameText.getText().toString() + "...");
 
                     ProgramSlot ps = new ProgramSlot(
-                            "10",
+                            CurrentProgramSlotId,
                             mSProgramDateEditText.getText().toString(),
                             programNameText.getText().toString(),
                             producerEditorText.getText().toString(),
@@ -242,8 +246,9 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "Pls fill in all the fields!");
                 }
-                else {
-
+                else
+                {
+                   ps2edit.setProgramSlotId(CurrentProgramSlotId);
                     ControlFactory.getScheduleController().selectCreateSchedule(ps2edit);
                     return true;
                 }

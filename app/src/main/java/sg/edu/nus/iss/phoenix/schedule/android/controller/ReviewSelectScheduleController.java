@@ -61,6 +61,7 @@ public class ReviewSelectScheduleController {
     public void selectCreateSchedule() {
         psSelected = null;
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
+        intent.putExtra("CurrentProgramSlotId", getValidPsId());
         MainController.displayScreen(intent);
     }
     public  String getValidPsId()

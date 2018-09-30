@@ -30,6 +30,10 @@ public class ProgramSlot {
         this.presenterName=presenterName;
         this.producerName=producerName;
     }
+    public ProgramSlot (String programSlotId )
+    {
+        this.programSlotId=programSlotId;
+    }
     public String getProgramSlotId (){
         return this.programSlotId;
     }
