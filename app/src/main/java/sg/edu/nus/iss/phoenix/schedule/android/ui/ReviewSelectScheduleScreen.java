@@ -17,6 +17,7 @@ import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.schedule.entity.Producer;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 public class ReviewSelectScheduleScreen extends AppCompatActivity {
@@ -133,6 +134,7 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
             mPSadapter.add(programSlots.get(i));
         }
     }
+
     public  String getValidPSId()
     {
 

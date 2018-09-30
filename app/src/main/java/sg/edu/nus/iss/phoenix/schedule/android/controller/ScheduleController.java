@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveProducerDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
@@ -23,6 +24,7 @@ import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.AnnualSchedule;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
+import sg.edu.nus.iss.phoenix.schedule.entity.Producer;
 
 /**
  * Created by liu.cao on 18/9/2018.
@@ -38,8 +40,10 @@ public class ScheduleController {
     private WeeklySchedule weeklySchedule = null;
     private AnnualSchedule annualSchedule = null;
     private ProgramSlot progamSlot = null;
+    private Producer producer = null;
     private ScheduleScreen scheduleScreen;
     private List<ProgramSlot> psLists;
+    private List<Producer> prodLists;
 
 
     public void startUseCase() {
@@ -49,14 +53,24 @@ public class ScheduleController {
     }
 
     public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
-       // this.scheduleListScreen = scheduleListScreen;
+        // this.scheduleListScreen = scheduleListScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
     }
 
+    public void onDisplayProducerList(ScheduleScreen scheduleScreen) {
+         //this.scheduleScreen = scheduleScreen;
+        new RetrieveProducerDelegate(this).execute("all");
+    }
 
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
         reviewSelectScheduleScreen.showProgramSlots(programSlots);
         psLists=programSlots;
+    }
+
+    public void ProducersRetrieved(List<Producer> producers) {
+        //scheduleScreen.showProducers(producers);
+        this.prodLists=producers;
+        //this.reviewSelectScheduleScreen.setValidPSId(getValidPsId());
     }
 
     public void selectCreateSchedule() {

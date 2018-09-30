@@ -5,21 +5,26 @@ package sg.edu.nus.iss.phoenix.schedule.entity;
  */
 
 public class Producer {
+
     private  String producerName;
-    private  String producerDescription;
+//    private  String producerDescription;
+    public Producer(String producerName){
+
+        this.producerName=producerName;
+    }
 
     public String getProducerName() {
         return producerName;
     }
 
-    public String getproducerDescription() {
-        return producerDescription;
-    }
+//    public String getproducerDescription() {
+//        return producerDescription;
+//    }
 
     public void setProducerName(String producerName) {
         this.producerName = producerName;
     }
-    public void setProducerDescription(String producerDescription) {
-        this.producerDescription = producerDescription;
-    }
+//    public void setProducerDescription(String producerDescription) {
+//        this.producerDescription = producerDescription;
+//    }
 }

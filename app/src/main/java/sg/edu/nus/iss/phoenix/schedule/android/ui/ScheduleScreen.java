@@ -18,11 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.entity.Producer;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
@@ -40,7 +42,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private String CurrentProgramSlotId;
 
     String[] programs = {"News", "Movie", "Drama"};
-    String[] producers = {"Me", "You", "We"};
+    //String[] producers = {"Me", "You", "We"};
+    String[] producers;
     String[] presenters = {"She", "he", "Us"};
     String[] durations = {"00:30:00", "01:00:00", "02:00:00"};
     ListView listView = null;
@@ -51,6 +54,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_schedule);
         // Keep the KeyListener for name EditText so as to enable editing after disabling it.
 
+        ControlFactory.getScheduleController().onDisplayProducerList(this);
 
         CurrentProgramSlotId=getIntent().getStringExtra("CurrentProgramSlotId");
         programNameText = (EditText) findViewById(R.id.maintain_program_text_view);
@@ -77,6 +81,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     }
 
     public void onClick(View v) {
+
+        //ControlFactory.getScheduleController().onDisplayProducerList(this);
 
         switch (v.getId()) {
 
@@ -270,6 +276,12 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     public void onBackPressed() {
         Log.v(TAG, "Canceling creating/editing schedule...");
         ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
+    }
+
+    public void showProducers(List<String> producers) {
+
+        String[] producerArr = new String[producers.size()];
+        this.producers = producers.toArray(producerArr);
     }
 
     public void createProgramSlot() {
