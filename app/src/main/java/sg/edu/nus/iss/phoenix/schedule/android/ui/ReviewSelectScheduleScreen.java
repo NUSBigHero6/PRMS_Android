@@ -27,7 +27,8 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
     // private ArrayAdapter<String> adapter = null;
     private ListView mListView;
     private ProgramSlot selectedPS = null;
-    private String validPSId;
+    public String validPSId ;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +72,6 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         mListView.setSelection(0);
 
         ControlFactory.getReviewSelectScheduleController().onDisplay(this);
-
     }
 
     @Override
@@ -132,6 +132,16 @@ public class ReviewSelectScheduleScreen extends AppCompatActivity {
         for (int i = 0; i < programSlots.size(); i++) {
             mPSadapter.add(programSlots.get(i));
         }
+    }
+    public  String getValidPSId()
+    {
+
+        return validPSId;
+
+    }
+    public void setValidPSId(String Id)
+    {
+        this.validPSId=Id;
     }
 
 

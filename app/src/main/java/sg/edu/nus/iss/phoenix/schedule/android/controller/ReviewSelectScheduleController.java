@@ -22,6 +22,8 @@ public class ReviewSelectScheduleController {
 
     private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private ProgramSlot psSelected = null;
+    private List<ProgramSlot> psLists;
+
 
     public void startUseCase() {
         psSelected = null;
@@ -36,6 +38,8 @@ public class ReviewSelectScheduleController {
 
     public void schedulesRetrieved(List<ProgramSlot> programSlots) {
         reviewSelectScheduleScreen.showProgramSlots(programSlots);
+        this.psLists=programSlots;
+        this.reviewSelectScheduleScreen.setValidPSId(getValidPsId());
     }
 
     public void selectSchedule(ProgramSlot programSlot) {
@@ -58,6 +62,18 @@ public class ReviewSelectScheduleController {
         psSelected = null;
         Intent intent = new Intent(MainController.getApp(), ScheduleScreen.class);
         MainController.displayScreen(intent);
+    }
+    public  String getValidPsId()
+    {
+        int i=1;
+        for(int j=0; j<psLists.size();j++)
+        {
+            if( Integer.parseInt(psLists.get(j).getProgramSlotId()) >i)
+            {
+                i=Integer.parseInt(psLists.get(j).getProgramSlotId());
+            }
+        }
+        return  String.valueOf(i+1);
     }
 
 }
