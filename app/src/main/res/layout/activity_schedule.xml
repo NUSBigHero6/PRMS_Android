@@ -17,6 +17,7 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:id="@+id/maintain_Date_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="yyyy-mm-dd"
         tools:text="Program Date" />
     <TextView
         android:layout_width="match_parent"
