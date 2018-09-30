@@ -83,40 +83,10 @@ public class ScheduleListScreen extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        //Not in Use
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
-            // Respond to a click on the "View" menu option
-            case R.id.action_view:
-                if (selectedPS == null) {
-                    // Prompt for the selection of a schedule.
-                    Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "There is no selected schedule.");
-                } else {
-                    Log.v(TAG, "Viewing schedule of program: " + selectedPS.getProgramName() + "...");
-                    ControlFactory.getScheduleController().selectEditSchedule(selectedPS);
-                }
-            case R.id.action_copySchedule :
-                if (selectedPS == null) {
-                    // Prompt for the selection of a schedule.
-                    Toast.makeText(this, "Select a schedule first! Use arrow keys on emulator", Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "There is no selected schedule.");
-                } else {
-                    Log.v(TAG, "Copying schedule of program: " + selectedPS.getProgramName() + "...");
-                    selectedPS.setStartTime("");
-
-                    ProgramSlot ps = new ProgramSlot(
-                            "2",
-                            selectedPS.getDateOfProgram(),
-                           selectedPS.getProgramName(),
-                            selectedPS.getProducerName(),
-                            selectedPS.getPresenterName(),
-                            "",
-                            selectedPS.getDuration()
-                    );
-                    ControlFactory.getScheduleController().selectCopySchedule(ps);
-                }
         }
-
         return true;
     }
 

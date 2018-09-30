@@ -18,8 +18,6 @@ import sg.edu.nus.iss.phoenix.schedule.android.delegate.CopyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.DeleteScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.ModifyScheduleDelegate;
 import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegate;
-import sg.edu.nus.iss.phoenix.schedule.android.ui.PresenterListScreen;
-import sg.edu.nus.iss.phoenix.schedule.android.ui.ProducerListScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.AnnualSchedule;
@@ -35,8 +33,6 @@ public class ScheduleController {
     // Tag for logging.
     private static final String TAG = ScheduleController.class.getName();
 
-    private ProducerListScreen producerListScreen;
-    private PresenterListScreen presenterListScreen;
    // private ScheduleListScreen scheduleListScreen;
     private ReviewSelectScheduleScreen reviewSelectScheduleScreen;
     private WeeklySchedule weeklySchedule = null;
@@ -84,14 +80,14 @@ public class ScheduleController {
         MainController.displayScreen(intent);
     }
 
-    public void onDisplaySchedule(ScheduleScreen scheduleScreen) {
+ /*   public void onDisplaySchedule(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;
         if (progamSlot == null)
             this.scheduleScreen.createProgramSlot();
 
         else
             this.scheduleScreen.editProgramSlot(progamSlot);
-    }
+    }*/
 
 /*    public void selectCopySchedule(ProgramSlot programSlot) {
         new CopyScheduleDelegate(this).execute(programSlot);
