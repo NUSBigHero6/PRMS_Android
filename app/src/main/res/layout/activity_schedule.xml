@@ -37,22 +37,50 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:text="ProducerName"
         tools:text="Producer Name" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="match_parent">
+
     <EditText
         android:id="@+id/maintain_producer_text_view"
-        android:layout_width="match_parent"
+        android:layout_weight=".85"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:inputType="none"
         tools:text="one" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/btn_select_producer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight=".15"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+    </LinearLayout>
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PresenterName"
         tools:text="Presenter Name" />
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="match_parent">
     <EditText
         android:id="@+id/maintain_presenter_text_view"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight=".85"
+        android:layout_width="0dp"
         tools:text="one" />
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/btn_select_presenter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight=".15"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"

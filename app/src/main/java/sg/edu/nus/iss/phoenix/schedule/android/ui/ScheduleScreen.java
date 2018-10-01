@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
 import android.support.annotation.Nullable;
+import android.support.design.widget.CheckableImageButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private EditText producerEditorText;
     private EditText presenterEditorText;
     private EditText durationEditorText;
+    private CheckableImageButton mBtnSearchProducer;
+    private CheckableImageButton mBtnSearchPresenter;
     private List<ProgramSlot> psList;
     private String CurrentProgramSlotId;
 
@@ -63,13 +66,11 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
 
         mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
-        producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);
-        producerEditorText.setClickable(true);
-        producerEditorText.setOnClickListener(this);
+        producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);producerEditorText.setClickable(true);
+        producerEditorText.setKeyListener(null);
 
         presenterEditorText = (EditText) findViewById(R.id.maintain_presenter_text_view);
-        presenterEditorText.setClickable(true);
-        presenterEditorText.setOnClickListener(this);
+        presenterEditorText.setKeyListener(null);
 
         programNameText.setClickable(true);
         programNameText.setOnClickListener(this);
@@ -77,6 +78,12 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
         durationEditorText.setClickable(true);
         durationEditorText.setOnClickListener(this);
+
+        mBtnSearchProducer = (CheckableImageButton)findViewById(R.id.btn_select_producer);
+        mBtnSearchProducer.setOnClickListener(this);
+
+        mBtnSearchPresenter = (CheckableImageButton)findViewById(R.id.btn_select_presenter);
+        mBtnSearchPresenter.setOnClickListener(this);
 
         //Get RadioProgram list
 
@@ -86,7 +93,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
         switch (v.getId()) {
 
-            case R.id.maintain_producer_text_view:
+            case R.id.btn_select_producer:
                 //ControlFactory.getScheduleController().onDisplayUserList(this, "producer");
                 listView = new ListView(this);
                 showDialogListView(v, "Producer list"); //improve if time permit
@@ -102,7 +109,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 });
                 break;
 
-            case R.id.maintain_presenter_text_view:
+            case R.id.btn_select_presenter:
                // ControlFactory.getScheduleController().onDisplayUserList(this, "presenter");
                 listView = new ListView(this);
                 showDialogListView(v, "Presenter list"); //improve if time permit
