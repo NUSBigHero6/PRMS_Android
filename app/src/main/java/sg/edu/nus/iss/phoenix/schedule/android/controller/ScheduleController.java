@@ -1,15 +1,21 @@
 package sg.edu.nus.iss.phoenix.schedule.android.controller;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.xml.transform.Result;
+
+import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
+import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleScreen;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
 import sg.edu.nus.iss.phoenix.core.android.controller.MainController;
@@ -40,6 +46,7 @@ public class ScheduleController {
     private ProgramSlot progamSlot = null;
     private ScheduleScreen scheduleScreen;
     private List<ProgramSlot> psLists;
+    private List<RadioProgram> radioPrograms= new ArrayList<RadioProgram>();
 
 
     public void startUseCase() {
@@ -48,11 +55,10 @@ public class ScheduleController {
         MainController.displayScreen(intent);
     }
 
-    public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
+  /*  public void onDisplayScheduleList(ScheduleListScreen scheduleListScreen) {
        // this.scheduleListScreen = scheduleListScreen;
         new RetrieveSchedulesDelegate(this).execute("all");
-    }
-
+    }*/
 
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
         reviewSelectScheduleScreen.showProgramSlots(programSlots);
@@ -117,6 +123,7 @@ public class ScheduleController {
     }
 
     public void selectCreateSchedule(ProgramSlot programSlot) {
+        //new RetrieveProgramsDelegate(this).execute("all");
         new CreateScheduleDelegate(this).execute(programSlot);
     }
 
@@ -139,7 +146,6 @@ public class ScheduleController {
     public void onDisplayScheduleTest(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;
         this.scheduleScreen.setPsList(psLists);
-
         if (this.progamSlot == null) {
             this.scheduleScreen.createProgramSlot();
         }
@@ -147,7 +153,13 @@ public class ScheduleController {
         else {
             this.scheduleScreen.editProgramSlot(progamSlot);
         }
+
+        new RetrieveProgramsDelegate(this).execute("all");
+
     }
 
+    public void setRadioProgramList(List<RadioProgram> radioPrograms) {
+        scheduleScreen.AddRadioPrograms(radioPrograms);
+    }
 
 }

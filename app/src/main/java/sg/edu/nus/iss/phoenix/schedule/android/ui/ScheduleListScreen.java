@@ -70,7 +70,7 @@ public class ScheduleListScreen extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         mListView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mListView.setSelection(0);
-        ControlFactory.getScheduleController().onDisplayScheduleList(this);
+       // ControlFactory.getScheduleController().onDisplayScheduleList(this);
     }
 
     @Override

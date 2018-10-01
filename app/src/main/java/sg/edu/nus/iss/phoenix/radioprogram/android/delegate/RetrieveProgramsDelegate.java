@@ -20,6 +20,7 @@ import java.util.Scanner;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.android.controller.ReviewSelectProgramController;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_RADIO_PROGRAM;
 
@@ -29,6 +30,7 @@ public class RetrieveProgramsDelegate extends AsyncTask<String, Void, String> {
 
     private ProgramController programController = null;
     private ReviewSelectProgramController reviewSelectProgramController = null;
+    private ScheduleController scheduleController=null;
 
     public RetrieveProgramsDelegate(ProgramController programController) {
         this.reviewSelectProgramController = null;
@@ -38,6 +40,10 @@ public class RetrieveProgramsDelegate extends AsyncTask<String, Void, String> {
     public RetrieveProgramsDelegate(ReviewSelectProgramController reviewSelectProgramController) {
         this.programController = null;
         this.reviewSelectProgramController = reviewSelectProgramController;
+    }
+    public RetrieveProgramsDelegate(ScheduleController scheduleController)
+    {
+        this.scheduleController=scheduleController;
     }
 
     @Override
@@ -99,5 +105,7 @@ public class RetrieveProgramsDelegate extends AsyncTask<String, Void, String> {
             programController.programsRetrieved(radioPrograms);
         else if (reviewSelectProgramController != null)
             reviewSelectProgramController.programsRetrieved(radioPrograms);
+        else if(scheduleController!=null)
+            scheduleController.setRadioProgramList(radioPrograms);
     }
 }

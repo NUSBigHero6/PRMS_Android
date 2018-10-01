@@ -18,11 +18,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
+import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
 public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
@@ -39,7 +42,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private List<ProgramSlot> psList;
     private String CurrentProgramSlotId;
 
-    String[] programs = {"News", "Movie", "Drama"};
+    private List<String> programs = new ArrayList<String>();
     String[] producers = {"Me", "You", "We"};
     String[] presenters = {"She", "he", "Us"};
     String[] durations = {"00:30:00", "01:00:00", "02:00:00"};
@@ -73,6 +76,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
         durationEditorText.setClickable(true);
         durationEditorText.setOnClickListener(this);
+
+        //Get RadioProgram list
 
     }
 
@@ -119,7 +124,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ViewGroup vg = (ViewGroup) view;
-                        String program = programs[i];
+                        String program = programs.get(i);
                         programNameText.setText(program);
                     }
                 });
@@ -155,7 +160,6 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
         ControlFactory.getScheduleController().onDisplayScheduleTest(this);
     }
 
@@ -322,6 +326,15 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             return  false;
             else
                 return  true;
+
+    }
+
+  public  void AddRadioPrograms (List<RadioProgram> radioPrograms)
+    {
+        for (RadioProgram rp: radioPrograms )
+        {
+            programs.add(rp.getRadioProgramName());
+        }
 
     }
 }
