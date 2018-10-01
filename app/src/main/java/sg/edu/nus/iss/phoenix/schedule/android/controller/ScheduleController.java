@@ -27,8 +27,11 @@ import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegat
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ScheduleListScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.AnnualSchedule;
+import sg.edu.nus.iss.phoenix.schedule.entity.Producer;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
+import sg.edu.nus.iss.phoenix.user.delegate.ProducerPresentorRetriveSearch;
+import sg.edu.nus.iss.phoenix.user.entity.*;
 
 /**
  * Created by liu.cao on 18/9/2018.
@@ -47,6 +50,7 @@ public class ScheduleController {
     private ScheduleScreen scheduleScreen;
     private List<ProgramSlot> psLists;
     private List<RadioProgram> radioPrograms= new ArrayList<RadioProgram>();
+    private List<User> users = new ArrayList<User>();
 
 
     public void startUseCase() {
@@ -125,6 +129,7 @@ public class ScheduleController {
     public void selectCreateSchedule(ProgramSlot programSlot) {
         //new RetrieveProgramsDelegate(this).execute("all");
         new CreateScheduleDelegate(this).execute(programSlot);
+
     }
 
     public void ScheduleCreated(boolean success) {
@@ -156,10 +161,21 @@ public class ScheduleController {
 
         new RetrieveProgramsDelegate(this).execute("all");
 
+
+    }
+
+    public void onDisplayUserList (ScheduleScreen scheduleScreen, String role) {
+
+        String type = role;
+        new ProducerPresentorRetriveSearch(this, type).execute("all");
     }
 
     public void setRadioProgramList(List<RadioProgram> radioPrograms) {
         scheduleScreen.AddRadioPrograms(radioPrograms);
+    }
+
+    public void setUserList(List<User> users) {
+        scheduleScreen.AddUsers(users);
     }
 
 }

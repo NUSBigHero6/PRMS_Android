@@ -21,14 +21,22 @@ import org.json.JSONObject;
 import sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper;
 import sg.edu.nus.iss.phoenix.user.controller.ReviewSelectProducerPresentorController;
 import sg.edu.nus.iss.phoenix.user.entity.*;
+import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 
 public class ProducerPresentorRetriveSearch extends  AsyncTask<String, Void, String> {
 
     private ReviewSelectProducerPresentorController controller;
     private String type;
+    private  ScheduleController scheduleController=null;
 
     public ProducerPresentorRetriveSearch(ReviewSelectProducerPresentorController controller, String type) {
         this.controller = controller;
+        this.type = type;
+    }
+
+    public ProducerPresentorRetriveSearch(ScheduleController scheduleController, String type)
+    {
+        this.scheduleController= scheduleController;
         this.type = type;
     }
 
@@ -106,6 +114,8 @@ public class ProducerPresentorRetriveSearch extends  AsyncTask<String, Void, Str
 
         if (controller != null)
             controller.gotUsers(users);
+        else if (scheduleController !=null)
+            scheduleController.setUserList(users);
     }
 
 
