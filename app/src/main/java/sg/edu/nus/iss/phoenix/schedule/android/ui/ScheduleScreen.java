@@ -27,6 +27,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDele
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
+import sg.edu.nus.iss.phoenix.user.entity.*;
 
 public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
     // Tag for logging
@@ -43,8 +44,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private String CurrentProgramSlotId;
 
     private List<String> programs = new ArrayList<String>();
-    String[] producers = {"Me", "You", "We"};
-    String[] presenters = {"She", "he", "Us"};
+    private List<String> users = new ArrayList<String>();
     String[] durations = {"00:30:00", "01:00:00", "02:00:00"};
     ListView listView = null;
 
@@ -86,30 +86,32 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
 
             case R.id.maintain_producer_text_view:
+                ControlFactory.getScheduleController().onDisplayUserList(this, "producer");
                 listView = new ListView(this);
                 showDialogListView(v, "Producer list"); //improve if time permit
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, producers);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, users);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ViewGroup vg = (ViewGroup) view;
-                        String producer = producers[i];
+                        String producer = users.get(i);
                         producerEditorText.setText(producer);
                     }
                 });
                 break;
 
             case R.id.maintain_presenter_text_view:
+                ControlFactory.getScheduleController().onDisplayUserList(this, "presenter");
                 listView = new ListView(this);
                 showDialogListView(v, "Presenter list"); //improve if time permit
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, presenters);
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, users);
                 listView.setAdapter(adapter1);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ViewGroup vg = (ViewGroup) view;
-                        String presenter = presenters[i];
+                        String presenter = users.get(i);
                         presenterEditorText.setText(presenter);
                     }
                 });
@@ -334,6 +336,15 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         for (RadioProgram rp: radioPrograms )
         {
             programs.add(rp.getRadioProgramName());
+        }
+
+    }
+
+    public  void AddUsers (List<User> users)
+    {
+        for (User ur: users )
+        {
+            this.users.add(ur.getName());
         }
 
     }
