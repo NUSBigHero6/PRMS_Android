@@ -58,7 +58,7 @@ public class ScheduleController {
     }
 
     public void onDisplayProducerList(ScheduleScreen scheduleScreen) {
-         //this.scheduleScreen = scheduleScreen;
+         this.scheduleScreen = scheduleScreen;
         new RetrieveProducerDelegate(this).execute("all");
     }
 
@@ -68,7 +68,7 @@ public class ScheduleController {
     }
 
     public void ProducersRetrieved(List<Producer> producers) {
-        //scheduleScreen.showProducers(producers);
+        scheduleScreen.showProducers(producers);
         this.prodLists=producers;
         //this.reviewSelectScheduleScreen.setValidPSId(getValidPsId());
     }

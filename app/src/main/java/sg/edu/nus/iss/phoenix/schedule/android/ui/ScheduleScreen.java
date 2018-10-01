@@ -82,8 +82,6 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View v) {
 
-        //ControlFactory.getScheduleController().onDisplayProducerList(this);
-
         switch (v.getId()) {
 
             case R.id.maintain_producer_text_view:
@@ -278,7 +276,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         ControlFactory.getScheduleController().selectCancelCreateEditSchedule();
     }
 
-    public void showProducers(List<String> producers) {
+    public void showProducers(List<Producer> producers) {
 
         String[] producerArr = new String[producers.size()];
         this.producers = producers.toArray(producerArr);

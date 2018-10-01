@@ -78,6 +78,8 @@ public class RetrieveProducerDelegate extends AsyncTask<String, Void, String> {
 
                     String name = prodJson.getString("name");
 
+                    Log.v(TAG, name);
+
                     producers.add(new Producer (name));
                 }
             } catch (JSONException e) {
