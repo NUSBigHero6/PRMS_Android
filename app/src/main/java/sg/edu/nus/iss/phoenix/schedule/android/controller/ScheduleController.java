@@ -160,6 +160,8 @@ public class ScheduleController {
         }
 
         new RetrieveProgramsDelegate(this).execute("all");
+        new ProducerPresentorRetriveSearch(this, "producer").execute("all");
+        new ProducerPresentorRetriveSearch(this, "presenter").execute("all");
 
 
     }
@@ -174,8 +176,11 @@ public class ScheduleController {
         scheduleScreen.AddRadioPrograms(radioPrograms);
     }
 
-    public void setUserList(List<User> users) {
-        scheduleScreen.AddUsers(users);
+    public void setProducers(List<User> users) {
+        scheduleScreen.AddProducers(users);
+    }
+    public void setPresenters(List<User> users) {
+        scheduleScreen.AddPresenters(users);
     }
 
 }

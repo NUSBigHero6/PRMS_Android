@@ -44,7 +44,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private String CurrentProgramSlotId;
 
     private List<String> programs = new ArrayList<String>();
-    private List<String> users = new ArrayList<String>();
+    private List<String> producers = new ArrayList<String>();
+    private List<String> presenters =new ArrayList<String>();
     String[] durations = {"00:30:00", "01:00:00", "02:00:00"};
     ListView listView = null;
 
@@ -86,32 +87,32 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()) {
 
             case R.id.maintain_producer_text_view:
-                ControlFactory.getScheduleController().onDisplayUserList(this, "producer");
+                //ControlFactory.getScheduleController().onDisplayUserList(this, "producer");
                 listView = new ListView(this);
                 showDialogListView(v, "Producer list"); //improve if time permit
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, users);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, producers);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ViewGroup vg = (ViewGroup) view;
-                        String producer = users.get(i);
+                        String producer = producers.get(i);
                         producerEditorText.setText(producer);
                     }
                 });
                 break;
 
             case R.id.maintain_presenter_text_view:
-                ControlFactory.getScheduleController().onDisplayUserList(this, "presenter");
+               // ControlFactory.getScheduleController().onDisplayUserList(this, "presenter");
                 listView = new ListView(this);
                 showDialogListView(v, "Presenter list"); //improve if time permit
-                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, users);
+                ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, presenters);
                 listView.setAdapter(adapter1);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         ViewGroup vg = (ViewGroup) view;
-                        String presenter = users.get(i);
+                        String presenter = presenters.get(i);
                         presenterEditorText.setText(presenter);
                     }
                 });
@@ -340,13 +341,21 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public  void AddUsers (List<User> users)
+    public  void AddProducers (List<User> users)
     {
         for (User ur: users )
         {
-            this.users.add(ur.getName());
+            this.producers.add(ur.getName());
         }
 
+    }
+
+    public  void AddPresenters(List<User> users)
+    {
+        for (User ur: users )
+        {
+            this.presenters.add(ur.getName());
+        }
     }
 }
 

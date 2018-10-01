@@ -114,8 +114,12 @@ public class ProducerPresentorRetriveSearch extends  AsyncTask<String, Void, Str
 
         if (controller != null)
             controller.gotUsers(users);
-        else if (scheduleController !=null)
-            scheduleController.setUserList(users);
+        else if (scheduleController !=null) {
+            if(this.type=="producer")
+            scheduleController.setProducers(users);
+            else
+                scheduleController.setPresenters(users);
+        }
     }
 
 
