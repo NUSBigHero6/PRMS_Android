@@ -1,9 +1,11 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
+
 /**
- * Created by liu.cao on 25/9/2018.
+ * Author  : liu cao
  */
 
+import android.net.ParseException;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CheckableImageButton;
 import android.support.v7.app.AlertDialog;
@@ -19,21 +21,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import sg.edu.nus.iss.phoenix.R;
 import sg.edu.nus.iss.phoenix.core.android.controller.ControlFactory;
-import sg.edu.nus.iss.phoenix.radioprogram.android.delegate.RetrieveProgramsDelegate;
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
-import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.user.entity.*;
 
@@ -51,7 +48,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private EditText durationEditorText;
     private CheckableImageButton mBtnSearchProducer;
     private CheckableImageButton mBtnSearchPresenter;
-    private List<ProgramSlot> psList;
+    private List<ProgramSlot> psList=new ArrayList<ProgramSlot>();
     private String CurrentProgramSlotId;
     private CheckableImageButton  cIBProducer;
     private CheckableImageButton  cIBPresenter;
@@ -74,6 +71,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         mRPNameEditTextKeyListener = programNameText.getKeyListener();
         mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
         mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
+
         producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);producerEditorText.setClickable(true);
         producerEditorText.setKeyListener(null);
         presenterEditorText = (EditText) findViewById(R.id.maintain_presenter_text_view);
@@ -204,8 +202,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             menuItemSave.setVisible(false);
             MenuItem menuItemSaveSchedule = menu.findItem(R.id.action_copysave);
             menuItemSaveSchedule.setVisible(true);
-            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            mSStartTimeEditText.setText(  sdf.format(Calendar.getInstance().getTime()));
+            //SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            mSStartTimeEditText.setText( "09:30:00",TextView.BufferType.EDITABLE);
         }
         return  true;
     }
@@ -248,7 +246,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                     ps2edit.setDateOfProgram( mSProgramDateEditText.getText().toString());
                     if(!IsProgamSlotValid(ps2edit))
                     {
-                        Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_SHORT).show();
                         Log.v(TAG, "Pls fill in all the fields!");
                         return  false;
                     }
@@ -258,11 +256,21 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_copysave:
+
                 Log.v(TAG, "Saving Copyed scheduled program " + ps2edit.getProgramName() + "...");
+                ps2edit.setStartTime(mSStartTimeEditText.getText().toString());
                 if(!IsProgamSlotValid(ps2edit))
                 {
                     Toast.makeText(this, "Pls fill in all the fields!", Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "Pls fill in all the fields!");
+                    return false;
+                }
+                //To add
+                else if(ValidateTimeOverlapping(ps2edit.getDateOfProgram(),ps2edit.getStartTime()))
+                {
+                    Toast.makeText(this, "Time is overlapping, pls change another time!", Toast.LENGTH_SHORT).show();
+                    Log.v(TAG, "Time is overlapping, pls change another time");
+                    return  false;
                 }
                 else
                 {
@@ -273,7 +281,6 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             case R.id.action_delete:
                 Log.v(TAG, "Deleting scheduled program " + ps2edit.getProgramName() + "...");
                 ControlFactory.getScheduleController().selectDeleteSchedule(ps2edit);
-                ControlFactory.getScheduleController().ScheduleDeleted(true);
                 return true;
             // Respond to a click on the "Cancel" menu option
             case R.id.action_cancel:
@@ -301,14 +308,16 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     public void editProgramSlot(ProgramSlot ps) {
         this.ps2edit = ps;
         if (ps2edit != null) {
+
+
             programNameText.setText(ps2edit.getProgramName(), TextView.BufferType.NORMAL);
             programNameText.setKeyListener(null);
 
-            mSProgramDateEditText.setText(ps2edit.getDateOfProgram(), TextView.BufferType.NORMAL);
-            mSProgramDateEditText.setKeyListener(null);
+            mSProgramDateEditText.setText(ps2edit.getDateOfProgram(), TextView.BufferType.EDITABLE);
+            //mSProgramDateEditText.setKeyListener(null);
 
-            mSStartTimeEditText.setText(ps2edit.getStartTime(), TextView.BufferType.NORMAL);
-            mSStartTimeEditText.setKeyListener(null);
+            mSStartTimeEditText.setText(ps2edit.getStartTime(), TextView.BufferType.EDITABLE);
+            //mSStartTimeEditText.setKeyListener(null);
 
             producerEditorText.setText(ps2edit.getProducerName(), TextView.BufferType.NORMAL);
             producerEditorText.setKeyListener(null);
@@ -369,6 +378,34 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         {
             this.presenters.add(ur.getName());
         }
+    }
+
+    public  void AddProgramSlots(List<ProgramSlot> psLists)
+    {
+        for (ProgramSlot  ps: psLists )
+        {
+            this.psList.add(ps);
+        }
+    }
+
+    //To do enhancement
+    public  boolean ValidateTimeOverlapping(String DateOfProgram, String StartTime)
+    {
+        boolean isExisting=false;
+        String newTime=DateOfProgram+StartTime;
+        Log.v(TAG, "NewTime is " +newTime);
+
+       for(ProgramSlot ps : this.psList)
+        {
+            String Current=ps.getDateOfProgram()+ps.getStartTime();
+            Log.v(TAG, "OldTime is " +Current);
+            if(newTime.equals(Current))
+          {
+              isExisting=true;
+              break;
+          }
+        }
+        return  isExisting;
     }
 }
 

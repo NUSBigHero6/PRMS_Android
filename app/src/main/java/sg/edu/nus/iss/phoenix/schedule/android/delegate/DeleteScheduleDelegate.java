@@ -15,9 +15,11 @@ import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
 
+
 /**
- * Created by liu.cao on 18/9/2018.
+ * Author  : liu cao
  */
+
 
 public class DeleteScheduleDelegate extends AsyncTask<String, Void, Boolean> {
     // Tag for logging

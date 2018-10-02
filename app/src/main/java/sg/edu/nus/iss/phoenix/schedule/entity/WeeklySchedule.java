@@ -4,9 +4,11 @@ import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
+
 /**
- * Created by liu.cao on 17/9/2018.
+ * Author  : liu cao
  */
+
 
 public class WeeklySchedule {
 

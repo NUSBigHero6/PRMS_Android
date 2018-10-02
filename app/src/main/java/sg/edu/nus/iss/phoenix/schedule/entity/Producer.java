@@ -1,8 +1,10 @@
 package sg.edu.nus.iss.phoenix.schedule.entity;
 
+
 /**
- * Created by liu.cao on 17/9/2018.
+ * Author  : liu cao
  */
+
 
 public class Producer {
     private  String producerName;

@@ -7,9 +7,11 @@ import javax.xml.datatype.Duration;
 
 import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 
+
 /**
- * Created by liu.cao on 17/9/2018.
+ * Author  : liu cao
  */
+
 
 public class ProgramSlot {
     private String programSlotId;

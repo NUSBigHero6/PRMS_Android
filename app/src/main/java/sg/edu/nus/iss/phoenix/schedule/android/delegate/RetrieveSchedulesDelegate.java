@@ -24,9 +24,11 @@ import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_PROGRAM_SLOT;
 import static sg.edu.nus.iss.phoenix.core.android.delegate.DelegateHelper.PRMS_BASE_URL_RADIO_PROGRAM;
 
+
 /**
- * Created by liu.cao on 18/9/2018.
+ * Author  : liu cao
  */
+
 
 public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
     // Tag for logging
@@ -108,8 +110,10 @@ public class RetrieveSchedulesDelegate extends AsyncTask<String, Void, String> {
             Log.v(TAG, "JSON response error.");
         }
 
-        if (scheduleController != null)
-            scheduleController.SchedulesRetrieved(programSlots);
+        if (scheduleController != null) {
+            //scheduleController.SchedulesRetrieved(programSlots);
+            scheduleController.setProgamSlots(programSlots);
+        }
         else if (reviewSelectScheduleController != null)
             reviewSelectScheduleController.schedulesRetrieved(programSlots);
     }

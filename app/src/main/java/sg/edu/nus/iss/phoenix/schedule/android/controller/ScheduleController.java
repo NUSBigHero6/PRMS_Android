@@ -33,9 +33,11 @@ import sg.edu.nus.iss.phoenix.schedule.entity.WeeklySchedule;
 import sg.edu.nus.iss.phoenix.user.delegate.ProducerPresentorRetriveSearch;
 import sg.edu.nus.iss.phoenix.user.entity.*;
 
+
 /**
- * Created by liu.cao on 18/9/2018.
+ * Author  : liu cao
  */
+
 
 public class ScheduleController {
 
@@ -65,7 +67,7 @@ public class ScheduleController {
     }*/
 
     public void SchedulesRetrieved(List<ProgramSlot> programSlots) {
-        reviewSelectScheduleScreen.showProgramSlots(programSlots);
+       // reviewSelectScheduleScreen.showProgramSlots(programSlots);
         psLists=programSlots;
     }
 
@@ -150,7 +152,7 @@ public class ScheduleController {
 
     public void onDisplayScheduleTest(ScheduleScreen scheduleScreen) {
         this.scheduleScreen = scheduleScreen;
-        this.scheduleScreen.setPsList(psLists);
+        //this.scheduleScreen.setPsList(psLists);
         if (this.progamSlot == null) {
             this.scheduleScreen.createProgramSlot();
         }
@@ -158,7 +160,7 @@ public class ScheduleController {
         else {
             this.scheduleScreen.editProgramSlot(progamSlot);
         }
-
+        new RetrieveSchedulesDelegate(this).execute("allProgramSlot");
         new RetrieveProgramsDelegate(this).execute("all");
         new ProducerPresentorRetriveSearch(this, "producer").execute("all");
         new ProducerPresentorRetriveSearch(this, "presenter").execute("all");
@@ -182,5 +184,6 @@ public class ScheduleController {
     public void setPresenters(List<User> users) {
         scheduleScreen.AddPresenters(users);
     }
+    public void setProgamSlots(List<ProgramSlot> psLists) {scheduleScreen.AddProgramSlots(psLists);}
 
 }

@@ -14,9 +14,11 @@ import java.util.ArrayList;
 
 import sg.edu.nus.iss.phoenix.R;
 
+
 /**
- * Created by liu.cao on 19/9/2018.
+ * Author  : liu cao
  */
+
 
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 

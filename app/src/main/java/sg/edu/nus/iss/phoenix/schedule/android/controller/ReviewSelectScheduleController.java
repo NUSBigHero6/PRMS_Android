@@ -12,9 +12,11 @@ import sg.edu.nus.iss.phoenix.schedule.android.delegate.RetrieveSchedulesDelegat
 import sg.edu.nus.iss.phoenix.schedule.android.ui.ReviewSelectScheduleScreen;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 
+
 /**
- * Created by liu.cao on 18/9/2018.
+ * Author  : liu cao
  */
+
 
 public class ReviewSelectScheduleController {
     // Tag for logging.
