@@ -18,7 +18,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class ScheduleListScreen extends AppCompatActivity {
     private static final String TAG = ScheduleListScreen.class.getName();
 
     private ListView mListView;
+    private TextView tv_noResult;
     private ProgramSlotAdapter mPSAdapter;
     private ProgramSlot selectedPS = null;
 
@@ -46,6 +50,8 @@ public class ScheduleListScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_list);
+
+        tv_noResult = (TextView) findViewById(R.id.tv_noResult);
 
         ArrayList<ProgramSlot> programSlots = new ArrayList<ProgramSlot>();
         mPSAdapter = new ProgramSlotAdapter(this, programSlots);

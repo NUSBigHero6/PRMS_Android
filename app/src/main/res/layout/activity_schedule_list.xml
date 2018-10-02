@@ -21,6 +21,15 @@
 
     </ListView>
 
+    <TextView
+        android:id="@+id/tv_noResult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Schedule yet"
+        android:gravity="center_vertical"
+        android:visibility="invisible"/>
+
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/schedulefab"
         android:layout_width="wrap_content"

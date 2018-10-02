@@ -15,7 +15,6 @@ public class MainScreen extends AppCompatActivity {
     private Button mbtn_schedule;
     private Button mbtn_logout;
     private Button mbtn_user;
-    private Button mbtn_review_select;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +22,7 @@ public class MainScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mbtn_radio_program = (Button) findViewById(R.id.button_radio_program);
-        mbtn_review_select = (Button) findViewById(R.id.button_select);
+
         // Set a click listener on Maintain Program Button.
         mbtn_radio_program.setOnClickListener(new View.OnClickListener() {
             // The code in this method will be executed when the numbers category is clicked on.
@@ -64,13 +63,6 @@ public class MainScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ControlFactory.getMainController().selectLogout();
-            }
-        });
-
-        mbtn_review_select.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ControlFactory.getMainController().selectProducer();
             }
         });
     }
