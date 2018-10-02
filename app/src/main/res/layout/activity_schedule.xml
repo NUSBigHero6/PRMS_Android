@@ -55,6 +55,7 @@ tools:context=".schedule.android.ui.ScheduleScreen">
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_weight=".15"
+            android:visibility="invisible"
             app:srcCompat="@android:drawable/ic_menu_search" />
     </LinearLayout>
 
@@ -79,6 +80,7 @@ tools:context=".schedule.android.ui.ScheduleScreen">
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_weight=".15"
+            android:visibility="invisible"
             app:srcCompat="@android:drawable/ic_menu_search" />
     </LinearLayout>
 

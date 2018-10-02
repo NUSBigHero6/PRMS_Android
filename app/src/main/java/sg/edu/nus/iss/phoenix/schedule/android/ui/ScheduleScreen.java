@@ -1,5 +1,9 @@
 package sg.edu.nus.iss.phoenix.schedule.android.ui;
 
+/**
+ * Created by liu.cao on 25/9/2018.
+ */
+
 import android.support.annotation.Nullable;
 import android.support.design.widget.CheckableImageButton;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +34,7 @@ import sg.edu.nus.iss.phoenix.radioprogram.entity.RadioProgram;
 import sg.edu.nus.iss.phoenix.schedule.android.controller.ScheduleController;
 import sg.edu.nus.iss.phoenix.schedule.entity.ProgramSlot;
 import sg.edu.nus.iss.phoenix.user.entity.*;
+
 
 public class ScheduleScreen extends AppCompatActivity implements View.OnClickListener {
     // Tag for logging
@@ -45,6 +51,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private CheckableImageButton mBtnSearchPresenter;
     private List<ProgramSlot> psList;
     private String CurrentProgramSlotId;
+    private CheckableImageButton  cIBProducer;
+    private CheckableImageButton  cIBPresenter;
 
     private List<String> programs = new ArrayList<String>();
     private List<String> producers = new ArrayList<String>();
@@ -62,31 +70,24 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         CurrentProgramSlotId=getIntent().getStringExtra("CurrentProgramSlotId");
         programNameText = (EditText) findViewById(R.id.maintain_program_text_view);
         mRPNameEditTextKeyListener = programNameText.getKeyListener();
-
         mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
-
         mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
         producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);producerEditorText.setClickable(true);
         producerEditorText.setKeyListener(null);
-
         presenterEditorText = (EditText) findViewById(R.id.maintain_presenter_text_view);
         presenterEditorText.setKeyListener(null);
-
         programNameText.setClickable(true);
         programNameText.setOnClickListener(this);
-
         durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
         durationEditorText.setClickable(true);
         durationEditorText.setOnClickListener(this);
-
         mBtnSearchProducer = (CheckableImageButton)findViewById(R.id.btn_select_producer);
         mBtnSearchProducer.setOnClickListener(this);
-
         mBtnSearchPresenter = (CheckableImageButton)findViewById(R.id.btn_select_presenter);
         mBtnSearchPresenter.setOnClickListener(this);
 
-        //Get RadioProgram list
-
+        cIBProducer=(CheckableImageButton)findViewById(R.id.btn_select_producer);
+        cIBPresenter=(CheckableImageButton)findViewById(R.id.btn_select_presenter);
     }
 
     public void onClick(View v) {
@@ -214,7 +215,6 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 // Save schedule.
                 if (ps2edit == null) { // Newly created.
                     Log.v(TAG, "Saving scheduled program " + programNameText.getText().toString() + "...");
-
                     ProgramSlot ps = new ProgramSlot(
                             CurrentProgramSlotId,
                             mSProgramDateEditText.getText().toString(),
@@ -289,8 +289,9 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     public void createProgramSlot() {
         this.ps2edit = null;
         programNameText.setText("", TextView.BufferType.EDITABLE);
-
         programNameText.setKeyListener(mRPNameEditTextKeyListener);
+        cIBProducer.setVisibility(View.VISIBLE);
+        cIBPresenter.setVisibility(View.VISIBLE);
     }
 
     public void editProgramSlot(ProgramSlot ps) {
@@ -313,7 +314,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
             durationEditorText.setText(ps2edit.getDuration(), TextView.BufferType.NORMAL);
             durationEditorText.setKeyListener(null);
-
+            cIBProducer.setVisibility(View.VISIBLE);
+            cIBPresenter.setVisibility(View.VISIBLE);
         }
     }
     public  List<ProgramSlot> getPsList ()
