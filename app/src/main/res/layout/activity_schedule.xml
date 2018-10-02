@@ -25,11 +25,24 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:text="ProgramName"
         tools:text="Program Name" />
 
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="match_parent">
     <EditText
         android:id="@+id/maintain_program_text_view"
-        android:layout_width="match_parent"
+        android:layout_weight=".85"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="one" />
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/btn_select_program"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight=".15"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -103,15 +116,28 @@ tools:context=".schedule.android.ui.ScheduleScreen">
         android:layout_height="wrap_content"
         android:text="Duration"
         tools:text="Duration" />
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_width="match_parent">
     <EditText
         android:id="@+id/maintain_programslot_duration_text_view"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight=".85"
+        android:layout_width="0dp"
         android:inputType="time"
         android:maxLength="8"
         android:text="00:30:00"
         tools:text="00:30:00" />
+
+        <android.support.design.widget.CheckableImageButton
+            android:id="@+id/btn_select_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight=".15"
+            android:visibility="invisible"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -50,8 +50,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
     private CheckableImageButton mBtnSearchPresenter;
     private List<ProgramSlot> psList=new ArrayList<ProgramSlot>();
     private String CurrentProgramSlotId;
-    private CheckableImageButton  cIBProducer;
-    private CheckableImageButton  cIBPresenter;
+    private CheckableImageButton  mBtnSearchProgram;
+    private CheckableImageButton  mBtnSearchDuration;
 
     private List<String> programs = new ArrayList<String>();
     private List<String> producers = new ArrayList<String>();
@@ -86,8 +86,10 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         mBtnSearchPresenter = (CheckableImageButton)findViewById(R.id.btn_select_presenter);
         mBtnSearchPresenter.setOnClickListener(this);
 
-        cIBProducer=(CheckableImageButton)findViewById(R.id.btn_select_producer);
-        cIBPresenter=(CheckableImageButton)findViewById(R.id.btn_select_presenter);
+        mBtnSearchProgram=(CheckableImageButton)findViewById(R.id.btn_select_program);
+        mBtnSearchProgram.setOnClickListener(this);
+        mBtnSearchDuration=(CheckableImageButton)findViewById(R.id.btn_select_duration);
+        mBtnSearchDuration.setOnClickListener(this);
     }
 
     public void onClick(View v) {
@@ -301,8 +303,11 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
         this.ps2edit = null;
         programNameText.setText("", TextView.BufferType.EDITABLE);
         programNameText.setKeyListener(mRPNameEditTextKeyListener);
-        cIBProducer.setVisibility(View.VISIBLE);
-        cIBPresenter.setVisibility(View.VISIBLE);
+        mBtnSearchProducer.setVisibility(View.VISIBLE);
+        mBtnSearchPresenter.setVisibility(View.VISIBLE);
+        mBtnSearchProgram.setVisibility(View.VISIBLE);
+        mBtnSearchDuration.setVisibility(View.VISIBLE);
+
     }
 
     public void editProgramSlot(ProgramSlot ps) {
@@ -327,8 +332,10 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
             durationEditorText.setText(ps2edit.getDuration(), TextView.BufferType.NORMAL);
             durationEditorText.setKeyListener(null);
-            cIBProducer.setVisibility(View.VISIBLE);
-            cIBPresenter.setVisibility(View.VISIBLE);
+            mBtnSearchProducer.setVisibility(View.VISIBLE);
+            mBtnSearchPresenter.setVisibility(View.VISIBLE);
+            mBtnSearchProgram.setVisibility(View.VISIBLE);
+            mBtnSearchDuration.setVisibility(View.VISIBLE);
         }
     }
     public  List<ProgramSlot> getPsList ()
