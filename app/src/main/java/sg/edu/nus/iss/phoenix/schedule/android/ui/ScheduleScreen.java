@@ -24,7 +24,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import sg.edu.nus.iss.phoenix.R;
@@ -202,6 +204,8 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
             menuItemSave.setVisible(false);
             MenuItem menuItemSaveSchedule = menu.findItem(R.id.action_copysave);
             menuItemSaveSchedule.setVisible(true);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            mSStartTimeEditText.setText(  sdf.format(Calendar.getInstance().getTime()));
         }
         return  true;
     }
