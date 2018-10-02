@@ -133,7 +133,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 });
                 break;
 
-            case R.id.maintain_program_text_view:
+            case R.id.btn_select_program:
                 listView = new ListView(this);
                 showDialogListView(v, "Program list"); //improve if time permit
                 ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, programs);
@@ -148,7 +148,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
                 });
                 break;
 
-            case R.id.maintain_programslot_duration_text_view:
+            case R.id.btn_select_duration:
                 listView = new ListView(this);
                 showDialogListView(v, "Duration list"); //improve if time permit
                 ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this, R.layout.list_item, R.id.txtitem, durations);
