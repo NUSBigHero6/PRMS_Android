@@ -68,19 +68,23 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
         CurrentProgramSlotId=getIntent().getStringExtra("CurrentProgramSlotId");
         programNameText = (EditText) findViewById(R.id.maintain_program_text_view);
-        mRPNameEditTextKeyListener = programNameText.getKeyListener();
+        // mRPNameEditTextKeyListener = programNameText.getKeyListener();
         mSProgramDateEditText = (EditText) findViewById(R.id.maintain_Date_text_view);
         mSStartTimeEditText = (EditText) findViewById(R.id.maintain_starttime_text_view);
 
-        producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);producerEditorText.setClickable(true);
+        producerEditorText = (EditText) findViewById(R.id.maintain_producer_text_view);
+        producerEditorText.setClickable(true);
         producerEditorText.setKeyListener(null);
+
         presenterEditorText = (EditText) findViewById(R.id.maintain_presenter_text_view);
         presenterEditorText.setKeyListener(null);
         programNameText.setClickable(true);
         programNameText.setOnClickListener(this);
+
         durationEditorText =(EditText)findViewById(R.id.maintain_programslot_duration_text_view);
         durationEditorText.setClickable(true);
         durationEditorText.setOnClickListener(this);
+
         mBtnSearchProducer = (CheckableImageButton)findViewById(R.id.btn_select_producer);
         mBtnSearchProducer.setOnClickListener(this);
         mBtnSearchPresenter = (CheckableImageButton)findViewById(R.id.btn_select_presenter);
@@ -88,6 +92,7 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
         mBtnSearchProgram=(CheckableImageButton)findViewById(R.id.btn_select_program);
         mBtnSearchProgram.setOnClickListener(this);
+
         mBtnSearchDuration=(CheckableImageButton)findViewById(R.id.btn_select_duration);
         mBtnSearchDuration.setOnClickListener(this);
     }
@@ -301,12 +306,14 @@ public class ScheduleScreen extends AppCompatActivity implements View.OnClickLis
 
     public void createProgramSlot() {
         this.ps2edit = null;
-        programNameText.setText("", TextView.BufferType.EDITABLE);
-        programNameText.setKeyListener(mRPNameEditTextKeyListener);
+        programNameText.setText("", TextView.BufferType.NORMAL);
+        programNameText.setKeyListener(null);
         mBtnSearchProducer.setVisibility(View.VISIBLE);
         mBtnSearchPresenter.setVisibility(View.VISIBLE);
         mBtnSearchProgram.setVisibility(View.VISIBLE);
         mBtnSearchDuration.setVisibility(View.VISIBLE);
+        durationEditorText.setText("00:30:00", TextView.BufferType.NORMAL);
+        durationEditorText.setKeyListener(null);
 
     }
 
